@@ -1,0 +1,68 @@
+package com.mpoznyak.domain;
+
+import com.mpoznyak.domain.model.Case;
+import com.mpoznyak.domain.model.Todo;
+import org.junit.Test;
+import java.time.*;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class CaseTest {
+
+    private static final String TITLE = "Criminal Case";
+    private Case testCase;
+    private Case case1 = new Case();
+    private Case case2 = new Case();
+
+    @Test
+    public void shouldSetTitle(){
+        testCase = mock(Case.class);
+        testCase.setTitle(TITLE);
+        verify(testCase).setTitle(TITLE);
+    }
+
+    @Test
+    public void shouldReturnTitle() {
+        testCase = new Case();
+        testCase.setTitle(TITLE);
+        assertEquals("Case instance should return " + TITLE +
+                " but it returns " + testCase.getTitle(), TITLE, testCase.getTitle());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalExcWhenPassNullArgToSetTitle() {
+        testCase = new Case();
+        testCase.setTitle("");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullExcWhenCallGetTitle() {
+        testCase = new Case();
+        testCase.getTitle();
+    }
+
+    @Test
+    public void shouldReturnCreationDate() {
+        LocalDate date = LocalDate.now();
+        testCase = new Case();
+        assertTrue(date.isBefore(testCase.getCreationDate())
+                || date.isEqual(testCase.getCreationDate()));
+        assertTrue(date.equals(testCase.getCreationDate()));
+    }
+
+    @Test
+    public void shouldReturnTodo() {
+        testCase = new Case();
+        assertTrue(testCase.getTodo() instanceof Todo);
+    }
+
+    @Test
+    public void testComparingTwoCaseInstances() {
+        assertEquals("Should return 1", 0 , case1.compareTo(case2));
+    }
+
+
+
+
+}
