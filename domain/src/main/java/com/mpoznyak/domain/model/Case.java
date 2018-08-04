@@ -1,34 +1,37 @@
 package com.mpoznyak.domain.model;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
+//TODO switch to jdk 7 DATE
 public class Case implements Comparable<Case>{
 
-    private String mTitle;
-    private final LocalDate mCreationDate;
+    private String mName;
+    private final Date mCreationDate;
     private final Todo mTodo;
     private List<Entry> mEntries;
 
     public Case() {
-        mCreationDate = LocalDate.now();
+        mCreationDate = new Date();
         mTodo = new Todo();
         mEntries = new ArrayList<>();
     }
 
-    public String getTitle() throws NullPointerException{
-        if (mTitle == null) {
-            throw new NullPointerException("mTitle has null reference");
+    public String getName() throws NullPointerException{
+        if (mName == null) {
+            throw new NullPointerException("mName has null reference");
         }
-        return this.mTitle;
+        return this.mName;
     }
 
-    public void setTitle(String title) throws IllegalArgumentException {
-        if (title == null || title.equals("") || title.equals(" ")){
-            throw new IllegalArgumentException("title should have meaningful name");
+    public void setName(String name) throws IllegalArgumentException {
+        if (name == null || name.equals("") || name.equals(" ")){
+            throw new IllegalArgumentException("name should have meaningful name");
         }
-        this.mTitle = title;
+        this.mName = name;
     }
 
     public void addEntry(Entry entry) {
@@ -39,7 +42,7 @@ public class Case implements Comparable<Case>{
         return mEntries;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return mCreationDate;
     }
 
@@ -49,9 +52,9 @@ public class Case implements Comparable<Case>{
 
     @Override
     public int compareTo(Case c) {
-        if(this.mCreationDate.isAfter(c.mCreationDate)) {
+        if(this.mCreationDate.after(c.mCreationDate)) {
             return 1;
-        } else if (c.mCreationDate.isAfter(this.mCreationDate)){
+        } else if (c.mCreationDate.after(this.mCreationDate)){
             return -1;
         }
         return 0;

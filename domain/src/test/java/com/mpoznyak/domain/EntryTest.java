@@ -4,6 +4,7 @@ import com.mpoznyak.domain.model.Entry;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -35,21 +36,20 @@ public class EntryTest {
 
     @Test
     public void testSetPath() {
-        Path path = Paths.get("/Users/qarnd");
+        String path = "/Users/qarnd";
         doc.setPath(path);
-        assertTrue(doc.getPath().equals(path));
+        assertTrue(doc.getPath().toString().equals(path));
     }
 
     @Test
     public void testGetSize() {
-        Path path = doc.getPath();
-        assertTrue(doc.getSize() == path.toFile().length());
+        File path = doc.getPath();
+        assertTrue(doc.getSize() == path.length());
     }
 
     @Test
     public void testGetLastModified() {
         long millis = doc.getPath()
-                .toFile()
                 .lastModified();
         doc = mock(Entry.class);
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -65,9 +65,10 @@ public class EntryTest {
     public void shouldReturnListFiles() {
         List<Entry> docs = new ArrayList<>();
         Entry doc = new Entry("/Users/qarnd/Development/carinadocs/dataproviders/docs");
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(doc.getPath(),"*.{md,doc,java}")) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(doc.getPath().toPath(),"*.{md,doc,java}")) {
             for (Path path : stream) {
-                docs.add(new Entry(path));
+                docs.add(new Entry(path.toString()));
+                System.out.println(path);
             }
         } catch (IOException e) {
             e.printStackTrace();

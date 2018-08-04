@@ -1,34 +1,30 @@
 package com.mpoznyak.domain.model;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 
 public class Entry {
 
-    private Path mPath;
+    private File mPath;
     private String mName;
     private long mSize;
     private String mLastModified;
 
     public Entry(String path) {
-        mPath = Paths.get(path);
+        mPath = new File(path);
         setNameFromPath();
-        mSize = mPath.toFile().length();
+        mSize = mPath.length();
         setLastModifiedDate();
     }
 
-    public Entry(Path path) {
-        mPath = path;
-        setNameFromPath();
-    }
-
-    public Path getPath() {
+    public File getPath() {
         return mPath;
     }
 
-    public void setPath(Path path) {
-        mPath = path;
+    public void setPath(String path) {
+        mPath = new File(path);
     }
 
     public String getName() {
@@ -36,7 +32,7 @@ public class Entry {
     }
 
     public void setNameFromPath() {
-        mName = mPath.toFile().getName();
+        mName = mPath.getName();
     }
 
     public long getSize() {
@@ -48,8 +44,7 @@ public class Entry {
     }
 
     public void setLastModifiedDate() {
-        long millis = mPath.toFile()
-                .lastModified();
+        long millis = mPath.lastModified();
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         mLastModified = pattern.format(millis);
     }
