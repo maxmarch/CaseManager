@@ -5,10 +5,23 @@ import java.util.List;
 
 public class Todo {
 
+    private int id;
     private List<String> mTasks;
 
     public Todo() {
         mTasks = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTasks(List<String> tasks) {
+        mTasks = tasks;
     }
 
     public List<String> getTasks() {

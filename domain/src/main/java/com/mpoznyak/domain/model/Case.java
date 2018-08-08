@@ -13,11 +13,20 @@ public class Case implements Comparable<Case>{
     private final Date mCreationDate;
     private final Todo mTodo;
     private List<Entry> mEntries;
+    private String mType;
 
     public Case() {
         mCreationDate = new Date();
         mTodo = new Todo();
         mEntries = new ArrayList<>();
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 
     public String getName() throws NullPointerException{
