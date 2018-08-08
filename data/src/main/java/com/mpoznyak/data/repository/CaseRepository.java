@@ -39,7 +39,7 @@ public class CaseRepository implements Repository<Case> {
             database.setTransactionSuccessful();
         } finally {
             database.endTransaction();
-            database.close();
+            mDatabaseHelper.close();
         }
 
     }

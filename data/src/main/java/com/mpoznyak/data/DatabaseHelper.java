@@ -11,11 +11,13 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
-    private static DatabaseHelper mDatabaseHelper = null;
-    private Context mContext;
-
+    private static DatabaseHelper sInstance;
     private static final String DATABASE_NAME = "case_manager_db";
-    private static final int VERSION = 2;
+    private static final int DATABASE_VERSION = 2;
+
+    private DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public static class DatabaseContract {
 
@@ -59,16 +61,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ");";
     }
 
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
-        mContext = context;
-    }
-
-    public static DatabaseHelper newInstance(Context context) {
-        if (mDatabaseHelper == null) {
-            return new DatabaseHelper(context.getApplicationContext());
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
         }
-        return mDatabaseHelper;
+        return sInstance;
     }
 
     @Override

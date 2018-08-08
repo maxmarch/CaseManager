@@ -18,11 +18,10 @@ public class DatabaseHeplerTest {
 
     @Test
     public void testDatabaseInitialization() {
-        DatabaseHelper db = DatabaseHelper.newInstance(InstrumentationRegistry.getTargetContext());
-        SQLiteDatabase data = db.getWritableDatabase();
-        data.execSQL("INSERT INTO " + TABLE_ENTRIES + "(" + COLUMN_PATH + ")" + " VALUES "
+        DatabaseHelper helper = DatabaseHelper.getInstance(InstrumentationRegistry.getTargetContext());
+        helper.getWritableDatabase().execSQL("INSERT INTO " + TABLE_ENTRIES + "(" + COLUMN_PATH + ")" + " VALUES "
                 + "(" + "\'" + "mypath"+ "\'" + ");");
-        Cursor cursor = data.rawQuery("SELECT " + COLUMN_PATH + " FROM " + TABLE_ENTRIES + " WHERE " + COLUMN_PATH
+        Cursor cursor = helper.getWritableDatabase().rawQuery("SELECT " + COLUMN_PATH + " FROM " + TABLE_ENTRIES + " WHERE " + COLUMN_PATH
                 + " = " + "\'" + path + "\'" +";", new String[] {});
         int index = cursor.getColumnIndex(COLUMN_PATH);
         for (int i = 1; i < cursor.getCount(); i++) {
@@ -32,7 +31,8 @@ public class DatabaseHeplerTest {
             if (path == pathFromCursor)
                 assertTrue("Path should equals a value from database", path.equals(pathFromCursor));
         }
-        data.close();
+        cursor.close();
+        helper.close();
     }
 
 
