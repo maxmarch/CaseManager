@@ -31,7 +31,7 @@ public class Entry {
         return mName;
     }
 
-    public void setNameFromPath() {
+    private void setNameFromPath() {
         mName = mPath.getName();
     }
 
@@ -43,10 +43,19 @@ public class Entry {
         return mLastModified;
     }
 
-    public void setLastModifiedDate() {
+    private void setLastModifiedDate() {
         long millis = mPath.lastModified();
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         mLastModified = pattern.format(millis);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Entry)) {
+            return false;
+        }
+        Entry entry = (Entry) o;
+        return this.mPath.toString().equals(entry.mPath.toString());
     }
 
 

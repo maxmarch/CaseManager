@@ -1,7 +1,6 @@
 package com.mpoznyak.data.mapper;
 
 import android.content.ContentValues;
-import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.domain.model.Case;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;

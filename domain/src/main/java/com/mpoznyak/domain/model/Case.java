@@ -1,28 +1,30 @@
 package com.mpoznyak.domain.model;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Calendar;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-//TODO switch to jdk 7 DATE
+
 public class Case implements Comparable<Case>{
 
     private String mName;
-    private final Date mCreationDate;
-    private final Todo mTodo;
+    private Date mCreationDate;
+    private Todo mTodo;
     private List<Entry> mEntries;
     private String mType;
 
     public Case() {
-        mCreationDate = new Date();
-        mTodo = new Todo();
-        mEntries = new ArrayList<>();
     }
 
     public String getType() {
         return mType;
+    }
+
+    public void setCreationDate(String date) throws ParseException{
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        mCreationDate = formatter.parse(date);
     }
 
     public void setType(String type) {
@@ -44,11 +46,17 @@ public class Case implements Comparable<Case>{
     }
 
     public void addEntry(Entry entry) {
-        mEntries.add(entry);
+        if (!mEntries.contains(entry)) {
+            mEntries.add(entry);
+        }
     }
 
     public List<Entry> getEntries() {
         return mEntries;
+    }
+
+    public void setEntries(List<Entry> e) {
+        this.mEntries = e;
     }
 
     public Date getCreationDate() {
@@ -57,6 +65,10 @@ public class Case implements Comparable<Case>{
 
     public Todo getTodo() {
         return mTodo;
+    }
+
+    public void setTodo(Todo todo) {
+        mTodo = todo;
     }
 
     @Override
@@ -68,6 +80,4 @@ public class Case implements Comparable<Case>{
         }
         return 0;
     }
-
-
 }
