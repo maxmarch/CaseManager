@@ -1,6 +1,6 @@
-package com.mpoznyak.data.specification.cases.specification;
+package com.mpoznyak.data.query.cases.specification;
 
-import com.mpoznyak.data.specification.cases.AllTypesSpecification;
+import com.mpoznyak.data.query.cases.AllTypesSpecification;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

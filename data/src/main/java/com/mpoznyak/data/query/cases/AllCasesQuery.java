@@ -1,10 +1,9 @@
-package com.mpoznyak.data.specification.cases;
+package com.mpoznyak.data.query.cases;
 
-import com.mpoznyak.domain.repository.Specification;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
-public class AllCasesSpecification implements Specification {
+public class AllCasesQuery {
     
-    public static String toSqlQuery() {
+    public static String get() {
         return "SELECT DISTINCT " +  COLUMN_ID + ", " + COLUMN_NAME + ", " + COLUMN_TYPE + ", " + COLUMN_CREATION_DATE + ", " + COLUMN_PATH + ", " + COLUMN_TASK + " "
             + "FROM " + TABLE_CASES + " INNER JOIN " + TABLE_ENTRIES + " ON " + TABLE_CASES + "." + COLUMN_ID
             + " = " + TABLE_ENTRIES + "." + COLUMN_CASE_ID

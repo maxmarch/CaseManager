@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Case implements Comparable<Case>{
 
+    private int mId;
     private String mName;
     private Date mCreationDate;
     private Todo mTodo;
@@ -29,6 +30,14 @@ public class Case implements Comparable<Case>{
 
     public void setType(String type) {
         mType = type;
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     public String getName() throws NullPointerException{

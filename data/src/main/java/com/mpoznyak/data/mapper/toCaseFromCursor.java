@@ -2,13 +2,9 @@ package com.mpoznyak.data.mapper;
 
 import android.database.Cursor;
 import android.util.Log;
-
 import com.mpoznyak.domain.model.Case;
-import com.mpoznyak.domain.model.Entry;
-import com.mpoznyak.domain.model.Todo;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
 
@@ -18,22 +14,19 @@ public class toCaseFromCursor {
 
     public static Case map (Cursor cursor) {
         Case aCase = new Case();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            aCase.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
-            try {
-                aCase.setCreationDate(cursor.getString(cursor.getColumnIndex(COLUMN_CREATION_DATE)));
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-            aCase.setType(cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)));
-            aCase.setTodo(getTodoFromCursor(cursor));
-            aCase.setEntries(getEntriesFromCursor(cursor));
+        aCase.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+        aCase.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+        try {
+            aCase.setCreationDate(cursor.getString(cursor.getColumnIndex(COLUMN_CREATION_DATE)));
+        } catch (ParseException e) {
+            Log.e(TAG, e.getMessage());
         }
+        aCase.setType(cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)));
         Log.d(TAG,aCase.toString());
         return aCase;
     }
 
+    /*
     private static Todo getTodoFromCursor(Cursor cursor) {
         Todo todo = new Todo();
         List<String> taskList = new ArrayList<>();
@@ -62,6 +55,5 @@ public class toCaseFromCursor {
         }
         return entries;
     }
-
-
+     */
 }

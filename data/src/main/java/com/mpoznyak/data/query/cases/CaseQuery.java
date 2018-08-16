@@ -1,10 +1,8 @@
-package com.mpoznyak.data.specification.cases;
-
-import com.mpoznyak.domain.repository.Specification;
+package com.mpoznyak.data.query.cases;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
 
-public class CaseSpecification implements Specification {
+public class CaseQuery {
 
     private static final String baseQuery = "SELECT DISTINCT " +  COLUMN_ID + ", " + COLUMN_NAME + ", " + COLUMN_TYPE
             + ", " + COLUMN_CREATION_DATE + ", " + COLUMN_PATH + ", " + COLUMN_TASK + " "
@@ -13,11 +11,11 @@ public class CaseSpecification implements Specification {
             + " INNER JOIN " + TABLE_TODOS + " ON " + TABLE_CASES + "." + COLUMN_ID + " = "
             + TABLE_TODOS + "." + COLUMN_CASE_ID;
 
-    public static String withId(int id) {
+    public static String getForId(int id) {
         return baseQuery + " WHERE " + TABLE_CASES + "." + COLUMN_ID + " = " + id + ";";
     }
 
-    public static String ofType(String type) {
+    public static String getForType(String type) {
         return baseQuery + " WHERE " + TABLE_CASES + "." + COLUMN_TYPE + " = " + type + ";";
     }
 

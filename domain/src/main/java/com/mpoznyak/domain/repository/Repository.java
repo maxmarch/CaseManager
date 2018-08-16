@@ -12,5 +12,5 @@ public interface Repository<T> {
 
     void update(T item);
 
-    List<T> query(Specification specification);
+    List<T> query(String query);
 }
