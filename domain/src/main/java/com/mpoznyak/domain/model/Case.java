@@ -1,6 +1,7 @@
 package com.mpoznyak.domain.model;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,8 +11,8 @@ public class Case implements Comparable<Case>{
 
     private int mId;
     private String mName;
-    private Date mCreationDate;
-    private Todo mTodo;
+    private String mCreationDate;
+    private List<Task> mTasks;
     private List<Entry> mEntries;
     private String mType;
 
@@ -22,10 +23,16 @@ public class Case implements Comparable<Case>{
         return mType;
     }
 
-    public void setCreationDate(String date) throws ParseException{
+    public void setCreationDate(String date) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        mCreationDate = formatter.parse(date);
+        mCreationDate = date;
+
+    }
+
+    public void setCreationDate(Date date) {
+
+        DateFormat formatter = DateFormat.getDateInstance();
+        mCreationDate = formatter.format(date);
     }
 
     public void setType(String type) {
@@ -68,24 +75,36 @@ public class Case implements Comparable<Case>{
         this.mEntries = e;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return mCreationDate;
     }
 
-    public Todo getTodo() {
-        return mTodo;
+    public List<Task> getTasks() {
+        return mTasks;
     }
 
-    public void setTodo(Todo todo) {
-        mTodo = todo;
+    public void setTasks(List<Task> tasks) {
+        mTasks = tasks;
+    }
+
+    public void addTask(Task task) {
+        mTasks.add(task);
     }
 
     @Override
     public int compareTo(Case c) {
-        if(this.mCreationDate.after(c.mCreationDate)) {
-            return 1;
-        } else if (c.mCreationDate.after(this.mCreationDate)){
-            return -1;
+        Date thisDate;
+        Date anotherDate;
+        try {
+            thisDate = new SimpleDateFormat("dd.MM.yyyy").parse(this.mCreationDate);
+            anotherDate = new SimpleDateFormat("dd.MM.yyyy").parse(c.mCreationDate);
+            if (thisDate.after(anotherDate)) {
+                return 1;
+            } else if (anotherDate.after(thisDate)) {
+                return -1;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return 0;
     }

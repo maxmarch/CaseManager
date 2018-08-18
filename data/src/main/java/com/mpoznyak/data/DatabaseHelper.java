@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_CASES;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_ENTRIES;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TODOS;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TYPES;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -25,11 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_CREATION_DATE = "creation_date";
-        public static final String COLUMN_TODO_ID = "todo_id";
         public static final String COLUMN_TYPE = "type";
-        public static final String COLUMN_ENTRIES_ID = "entries_id";
 
-        public static final String TABLE_TODOS = "todos";
+        public static final String TABLE_TASKS = "tasks";
+        public static final String TABLE_TYPES = "types";
 
         public static final String COLUMN_TASK = "task";
 
@@ -38,15 +40,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String TABLE_ENTRIES = "entries";
         public static final String COLUMN_PATH = "path";
 
+        public static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_NAME + " TEXT UNIQUE NOT NULL "
+                + ");";
 
         public static final String CREATE_TABLE_CASES = "CREATE TABLE " + TABLE_CASES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NAME + " TEXT UNIQUE NOT NULL, "
-                + COLUMN_TYPE + " TEXT, "
-                + COLUMN_CREATION_DATE + " TEXT "
+                + COLUMN_TYPE + " TEXT NOT NULL, "
+                + COLUMN_CREATION_DATE + " TEXT, "
+                + "FOREIGN KEY (" + COLUMN_TYPE + ")" + " REFERENCES " + TABLE_TYPES + "(" + COLUMN_NAME + ") ON DELETE CASCADE "
                 + ");";
 
-        public static final String CREATE_TABLE_TODOS = "CREATE TABLE " + TABLE_TODOS + " ("
+        public static final String CREATE_TABLE_TODOS = "CREATE TABLE " + TABLE_TASKS + " ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_CASE_ID + " INTEGER, "
                 + COLUMN_TASK + " TEXT, "
@@ -71,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
+            db.execSQL(CREATE_TABLE_TYPES);
             db.execSQL(CREATE_TABLE_TODOS);
             db.execSQL(CREATE_TABLE_ENTRIES);
             db.execSQL(CREATE_TABLE_CASES);

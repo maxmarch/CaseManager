@@ -1,40 +1,44 @@
 package com.mpoznyak.data.repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.mpoznyak.data.DatabaseHelper;
-import com.mpoznyak.data.mapper.toContentValuesFromTodo;
-import com.mpoznyak.data.mapper.toTodoFromCursor;
-import com.mpoznyak.domain.model.Todo;
+import com.mpoznyak.data.mapper.tasks.ToContentValuesFromTask;
+import com.mpoznyak.data.mapper.tasks.ToTaskFromCursor;
+import com.mpoznyak.domain.model.Task;
 import com.mpoznyak.domain.repository.Repository;
+import com.mpoznyak.domain.repository.Specification;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_ID;
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TODOS;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TASKS;
 
-public class TodoRepository implements Repository<Todo> {
+public class TaskRepository implements Repository<Task> {
 
     private DatabaseHelper mDatabaseHelper;
 
-    public TodoRepository(DatabaseHelper helper) {
+    public TaskRepository(DatabaseHelper helper) {
         mDatabaseHelper = helper;
     }
 
     @Override
-    public void add(Todo item) {
+    public void add(Task item) {
         add(Collections.singletonList(item));
     }
 
     @Override
-    public void add(Iterable<Todo> todos) {
+    public void add(Iterable<Task> tasks) {
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
+        database.beginTransaction();
         try {
-            for (Todo item : todos) {
-                final ContentValues contentValues = toContentValuesFromTodo.map(item);
-                database.insert(TABLE_TODOS, null, contentValues);
+            for (Task item : tasks) {
+                final ContentValues contentValues = ToContentValuesFromTask.map(item);
+                database.insert(TABLE_TASKS, null, contentValues);
             }
             database.setTransactionSuccessful();
         } finally {
@@ -44,10 +48,10 @@ public class TodoRepository implements Repository<Todo> {
     }
 
     @Override
-    public void remove(Todo item) {
+    public void remove(Task item) {
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
         try {
-            database.delete(TABLE_TODOS, COLUMN_ID + " = ?"
+            database.delete(TABLE_TASKS, COLUMN_ID + " = ?"
                     , new String[]{String.valueOf(item.getId())});
         } finally {
             database.close();
@@ -55,10 +59,10 @@ public class TodoRepository implements Repository<Todo> {
     }
 
     @Override
-    public void update(Todo item) {
+    public void update(Task item) {
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
         try {
-            database.update(TABLE_TODOS, toContentValuesFromTodo.map(item)
+            database.update(TABLE_TASKS, ToContentValuesFromTask.map(item)
                     ,COLUMN_ID + " = ?", new String[]{String.valueOf(item.getId())});
         } finally {
             database.close();
@@ -66,21 +70,21 @@ public class TodoRepository implements Repository<Todo> {
     }
 
     @Override
-    public List<Todo> query(String query) {
+    public List<Task> query(Specification specification) {
         final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
-        final List<Todo> todos = new ArrayList<>();
+        final List<Task> tasks = new ArrayList<>();
 
         try {
-            final Cursor cursor = database.rawQuery(query, new String[]{});
+            final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
             for (int i = 0, size = cursor.getCount(); i < size; i++) {
                 cursor.moveToPosition(i);
-                todos.add(toTodoFromCursor.map(cursor));
+                tasks.add(ToTaskFromCursor.map(cursor));
             }
 
             cursor.close();
 
-            return todos;
+            return tasks;
         } finally {
             database.close();
         }

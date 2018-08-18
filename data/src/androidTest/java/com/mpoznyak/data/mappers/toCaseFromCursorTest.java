@@ -4,21 +4,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.mpoznyak.data.DatabaseHelper;
+import com.mpoznyak.data.mapper.cases.ToCaseFromCursor;
 import com.mpoznyak.domain.model.Case;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.mpoznyak.data.mapper.toCaseFromCursor;
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_CREATION_DATE;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class toCaseFromCursorTest {
@@ -51,7 +50,7 @@ public class toCaseFromCursorTest {
         cursor.moveToFirst();
         Date testDate;
         testDate = new SimpleDateFormat("dd/MM/yyyy").parse(cursor.getString(cursor.getColumnIndex(COLUMN_CREATION_DATE)));
-        Case aCase = toCaseFromCursor.map(cursor);
+        Case aCase = ToCaseFromCursor.map(cursor);
         assertEquals(true, aCase.getCreationDate().equals(testDate));
         cursor.close();
         helper.close();

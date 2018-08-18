@@ -1,6 +1,6 @@
 package com.mpoznyak.domain.model;
 
-public class Todo {
+public class Task {
 
     private int mId;
     private int mCaseId;

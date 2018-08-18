@@ -1,8 +1,8 @@
 package com.mpoznyak.casemanager;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.mpoznyak.data.DatabaseHelper;
 
@@ -12,9 +12,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DatabaseHelper db = DatabaseHelper.newInstance(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
         SQLiteDatabase data = db.getWritableDatabase();
-        data.execSQL("INSERT INTO todos (task) VALUES ('ajsnd')");
+
+        data.execSQL("INSERT INTO entries (case_id, path) VALUES (1, '/Users');");
 
         data.close();
 

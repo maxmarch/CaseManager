@@ -1,13 +1,15 @@
 package com.mpoznyak.domain;
 
 import com.mpoznyak.domain.model.Case;
-import com.mpoznyak.domain.model.Todo;
+
 import org.junit.Test;
-import java.time.*;
+
+import java.text.DateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CaseTest {
 
@@ -46,15 +48,13 @@ public class CaseTest {
     @Test
     public void shouldReturnCreationDate() {
         Date date = new Date();
+        DateFormat df = DateFormat.getDateInstance();
+        String strDate = df.format(date);
         testCase = new Case();
-        assertTrue(date.before(testCase.getCreationDate())
-                || date.equals(testCase.getCreationDate()));
-    }
-
-    @Test
-    public void shouldReturnTodo() {
-        testCase = new Case();
-        assertTrue(testCase.getTodo() instanceof Todo);
+        Case testCase1 = new Case();
+        testCase1.setCreationDate(date);
+        testCase.setCreationDate(strDate);
+        assertEquals(0, testCase1.compareTo(testCase1));
     }
 
     @Test

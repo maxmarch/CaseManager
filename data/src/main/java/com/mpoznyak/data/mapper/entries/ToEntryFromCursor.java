@@ -1,13 +1,16 @@
-package com.mpoznyak.data.mapper;
+package com.mpoznyak.data.mapper.entries;
 
 import android.database.Cursor;
+
 import com.mpoznyak.domain.model.Entry;
 
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_CASE_ID;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_ID;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_PATH;
 
-public class toEntryFromCursor {
+public class ToEntryFromCursor {
 
-    private static final String TAG = toEntryFromCursor.class.getSimpleName();
+    private static final String TAG = ToEntryFromCursor.class.getSimpleName();
 
     public static Entry map (Cursor cursor) {
         Entry entry = new Entry(cursor.getString(cursor.getColumnIndex(COLUMN_PATH)));

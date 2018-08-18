@@ -1,12 +1,14 @@
-package com.mpoznyak.data.mapper;
+package com.mpoznyak.data.mapper.entries;
 
 import android.content.ContentValues;
+
 import com.mpoznyak.domain.model.Entry;
 
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_CASE_ID;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_PATH;
 
 
-public class toContentValuesFromEntry {
+public class ToContentValuesFromEntry {
 
     private static final String CASE_ID = COLUMN_CASE_ID;
     private static final String PATH = COLUMN_PATH;

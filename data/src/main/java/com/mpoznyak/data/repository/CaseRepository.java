@@ -1,18 +1,22 @@
 package com.mpoznyak.data.repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.mpoznyak.data.DatabaseHelper;
-import com.mpoznyak.data.mapper.toCaseFromCursor;
-import com.mpoznyak.data.mapper.toContentValuesFromCase;
+import com.mpoznyak.data.mapper.cases.ToCaseFromCursor;
+import com.mpoznyak.data.mapper.cases.ToContentValuesFromCase;
 import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.repository.Repository;
+import com.mpoznyak.domain.repository.Specification;
 
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_NAME;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_CASES;
 
 public class CaseRepository implements Repository<Case> {
 
@@ -34,7 +38,7 @@ public class CaseRepository implements Repository<Case> {
 
         try {
             for (Case item : items) {
-                final ContentValues contentValues = toContentValuesFromCase.map(item);
+                final ContentValues contentValues = ToContentValuesFromCase.map(item);
                 database.insert(TABLE_CASES, null, contentValues);
             }
             database.setTransactionSuccessful();
@@ -57,7 +61,7 @@ public class CaseRepository implements Repository<Case> {
 
     @Override
     public void update(Case item) {
-        ContentValues updatedCaseCv = toContentValuesFromCase.map(item);
+        ContentValues updatedCaseCv = ToContentValuesFromCase.map(item);
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
         try {
             database.update(TABLE_CASES, updatedCaseCv, COLUMN_NAME + " = ?"
@@ -68,17 +72,17 @@ public class CaseRepository implements Repository<Case> {
     }
 
     @Override
-    public List<Case> query(String query) {
+    public List<Case> query(Specification specification) {
 
             final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
             final List<Case> cases = new ArrayList<>();
 
             try {
-                final Cursor cursor = database.rawQuery(query, new String[]{});
+                final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
                 for (int i = 0, size = cursor.getCount(); i < size; i++) {
                     cursor.moveToPosition(i);
-                    cases.add(toCaseFromCursor.map(cursor));
+                    cases.add(ToCaseFromCursor.map(cursor));
                 }
                 cursor.close();
 
