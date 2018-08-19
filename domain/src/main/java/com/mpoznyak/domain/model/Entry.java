@@ -27,7 +27,7 @@ public class Entry {
         return mCase_Id;
     }
 
-    public void setCase_Id(int case_Id) {
+    public void setCaseId(int case_Id) {
         mCase_Id = case_Id;
     }
 

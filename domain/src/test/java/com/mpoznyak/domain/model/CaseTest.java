@@ -1,6 +1,4 @@
-package com.mpoznyak.domain;
-
-import com.mpoznyak.domain.model.Case;
+package com.mpoznyak.domain.model;
 
 import org.junit.Test;
 
@@ -24,6 +22,7 @@ public class CaseTest {
         testCase.setName(TITLE);
         verify(testCase).setName(TITLE);
     }
+
 
     @Test
     public void shouldReturnTitle() {

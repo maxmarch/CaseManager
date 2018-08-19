@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static DatabaseHelper sInstance;
-    private static final String DATABASE_NAME = "case_manager_db";
+    public static final String DATABASE_NAME = "case_manager_db";
     private static final int DATABASE_VERSION = 2;
 
     private DatabaseHelper(Context context) {
@@ -90,7 +90,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     @Override
@@ -98,4 +97,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
+
 }

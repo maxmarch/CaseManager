@@ -1,38 +1,57 @@
 package com.mpoznyak.data;
 
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.*;
+import static com.mpoznyak.data.DatabaseHelper.DATABASE_NAME;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseHeplerTest {
 
-    private String path = "mypath";
+    private DatabaseHelper mDatabaseHelper;
+
+    @Before
+    public void setUp() {
+        InstrumentationRegistry.getContext().deleteDatabase(DATABASE_NAME);
+        mDatabaseHelper = DatabaseHelper.getInstance(InstrumentationRegistry.getTargetContext());
+    }
+
+    @After
+    public void disconnectDb() {
+        mDatabaseHelper.close();
+    }
 
     @Test
-    public void testDatabaseInitialization() {
-        DatabaseHelper helper = DatabaseHelper.getInstance(InstrumentationRegistry.getTargetContext());
-        helper.getWritableDatabase().execSQL("INSERT INTO " + TABLE_ENTRIES + "(" + COLUMN_PATH + ")" + " VALUES "
-                + "(" + "\'" + "mypath"+ "\'" + ");");
-        Cursor cursor = helper.getWritableDatabase().rawQuery("SELECT " + COLUMN_PATH + " FROM " + TABLE_ENTRIES + " WHERE " + COLUMN_PATH
-                + " = " + "\'" + path + "\'" +";", new String[] {});
-        int index = cursor.getColumnIndex(COLUMN_PATH);
-        for (int i = 1; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            String pathFromCursor = cursor.getString(index);
-            System.out.println(pathFromCursor);
-            if (path == pathFromCursor)
-                assertTrue("Path should equals a value from database", path.equals(pathFromCursor));
-        }
-        cursor.close();
-        helper.close();
+    public void onCreate() {
+        String expected = "type1";
+        mDatabaseHelper.onCreate(mDatabaseHelper.getWritableDatabase());
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+        db.execSQL("insert into " + DatabaseHelper.DatabaseContract.TABLE_TYPES
+                + " (name) " + " values " + "(\'" + expected + "\');");
+        Cursor cursor = db.rawQuery("SELECT name FROM " + DatabaseHelper.DatabaseContract.TABLE_TYPES + ";",
+                new String[]{}, null);
+        cursor.moveToFirst();
+        assertEquals(expected, cursor.getString(cursor.getColumnIndex(DatabaseHelper.DatabaseContract.COLUMN_NAME)));
+        assertTrue(db.isOpen());
+        assertFalse(db.isReadOnly());
+    }
+
+    @Test
+    public void testGetInstance() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(InstrumentationRegistry.getTargetContext());
+        assertEquals(mDatabaseHelper.DATABASE_NAME, dh.DATABASE_NAME);
     }
 
 

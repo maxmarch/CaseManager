@@ -15,7 +15,7 @@ public class ToEntryFromCursor {
     public static Entry map (Cursor cursor) {
         Entry entry = new Entry(cursor.getString(cursor.getColumnIndex(COLUMN_PATH)));
         entry.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-        entry.setCase_Id(cursor.getInt(cursor.getColumnIndex(COLUMN_CASE_ID)));
+        entry.setCaseId(cursor.getInt(cursor.getColumnIndex(COLUMN_CASE_ID)));
         return entry;
     }
 

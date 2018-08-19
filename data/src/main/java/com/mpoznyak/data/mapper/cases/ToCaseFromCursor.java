@@ -23,35 +23,4 @@ public class ToCaseFromCursor {
         Log.d(TAG,aCase.toString());
         return aCase;
     }
-
-    /*
-    private static Task getTodoFromCursor(Cursor cursor) {
-        Task todo = new Task();
-        List<String> taskList = new ArrayList<>();
-        cursor.moveToFirst();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            String task = cursor.getString(cursor.getColumnIndex(COLUMN_TASK));
-            if (!taskList.contains(task)) {
-                taskList.add(task);
-            }
-        }
-        todo.setTasks(taskList);
-        return todo;
-    }
-
-    private static List<Entry> getEntriesFromCursor(Cursor cursor) {
-        List<Entry> entries = new ArrayList<>();
-        cursor.moveToFirst();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            String path = cursor.getString(cursor.getColumnIndex(COLUMN_PATH));
-            Entry en = new Entry(path);
-            if (!entries.contains(en)) {
-                entries.add(en);
-            }
-        }
-        return entries;
-    }
-     */
 }
