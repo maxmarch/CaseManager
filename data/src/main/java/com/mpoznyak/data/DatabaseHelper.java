@@ -29,6 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_CREATION_DATE = "creation_date";
         public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_LAST_OPENED = "last_opened";
+        public static final String COLUMN_COLOR = "color";
 
         public static final String TABLE_TASKS = "tasks";
         public static final String TABLE_TYPES = "types";
@@ -42,7 +44,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         public static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_NAME + " TEXT UNIQUE NOT NULL "
+                + COLUMN_NAME + " TEXT UNIQUE NOT NULL, "
+                + COLUMN_COLOR + " TEXT, "
+                + COLUMN_LAST_OPENED + " INTEGER DEFAULT 0"
                 + ");";
 
         public static final String CREATE_TABLE_CASES = "CREATE TABLE " + TABLE_CASES + "("
