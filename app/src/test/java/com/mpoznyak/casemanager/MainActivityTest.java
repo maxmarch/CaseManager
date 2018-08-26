@@ -2,7 +2,7 @@ package com.mpoznyak.casemanager;
 
 import android.os.Bundle;
 
-import com.mpoznyak.casemanager.view.MainActivity;
+import com.mpoznyak.casemanager.view.activity.MainActivity;
 
 import org.junit.Test;
 

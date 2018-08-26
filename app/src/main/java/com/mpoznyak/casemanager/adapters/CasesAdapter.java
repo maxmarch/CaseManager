@@ -39,7 +39,7 @@ public class CasesAdapter extends RecyclerView.Adapter<CasesAdapter.CaseViewHold
     @Override
     public CaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_case, parent, false);
+                .inflate(R.layout.item_case, parent, false);
         return new CaseViewHolder(v);
     }
 
