@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.WelcomeActivity" />
-        <activity android:name=".view.activity.TypeAddingActivity" />
+        <activity android:name=".view.activity.WelcomeAddTypeActivity" />
+        <activity android:name=".view.activity.MainAddTypeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

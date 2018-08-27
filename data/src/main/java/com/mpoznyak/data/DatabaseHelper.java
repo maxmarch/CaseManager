@@ -10,6 +10,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_CAS
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_ENTRIES;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TODOS;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TYPES;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TRIGGER_TABLE_TYPES;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -41,6 +42,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         public static final String TABLE_ENTRIES = "entries";
         public static final String COLUMN_PATH = "path";
+
+        public static final String CREATE_TRIGGER_TABLE_TYPES = "CREATE TRIGGER types_last_opened_all_to_default " +
+                "BEFORE INSERT ON " + TABLE_TYPES + " BEGIN "
+                + "UPDATE " + TABLE_TYPES + " SET " + COLUMN_LAST_OPENED + " = 0; END;";
 
         public static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -86,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_TODOS);
             db.execSQL(CREATE_TABLE_ENTRIES);
             db.execSQL(CREATE_TABLE_CASES);
+            db.execSQL(CREATE_TRIGGER_TABLE_TYPES);
         } catch (SQLException e) {
             Log.d(TAG, "Thrown exception during creating tables: " + e.getMessage());
         }

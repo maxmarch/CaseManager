@@ -20,7 +20,7 @@ public class WelcomeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         mStartButton = findViewById(R.id.welcome_start_button);
-        final Intent intent = new Intent(this, TypeAddingActivity.class);
+        final Intent intent = new Intent(this, WelcomeAddTypeActivity.class);
         mStartButton.setOnClickListener(v -> {
             finish();
             startActivity(intent);
