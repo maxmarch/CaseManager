@@ -37,14 +37,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:textSize="18sp"
-                    android:text="@string/add_type"
+                    android:text="@string/new_type"
                     android:textColor="@color/colorTextDrawer"
                     android:gravity="center_horizontal|center_vertical" />
             </android.support.constraint.ConstraintLayout>
 
 
             <ImageButton
-                android:contentDescription="@string/add_type"
+                android:contentDescription="@string/new_type"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/btn_add_type"

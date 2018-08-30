@@ -17,4 +17,6 @@ public interface MainPresenter {
 
     String loadNameForLastOpenedType();
 
+    void updateType(Type type);
+
 }

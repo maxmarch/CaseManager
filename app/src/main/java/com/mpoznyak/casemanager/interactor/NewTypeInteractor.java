@@ -5,13 +5,13 @@ import com.mpoznyak.data.repository.TypeRepository;
 import com.mpoznyak.domain.command.types.AddType;
 import com.mpoznyak.domain.model.Type;
 
-public class WelcomeInteractor {
+public class NewTypeInteractor {
 
     private DatabaseHelper mDatabaseHelper;
     private TypeRepository mTypeRepository;
     private AddType mAddType;
 
-    public WelcomeInteractor(DatabaseHelper db) {
+    public NewTypeInteractor(DatabaseHelper db) {
         mDatabaseHelper = db;
         mTypeRepository = new TypeRepository(mDatabaseHelper);
         mAddType = new AddType();

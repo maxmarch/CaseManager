@@ -8,7 +8,7 @@
     android:background="@color/colorBackground">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/typeadding_screen"
+        android:id="@+id/newCaseScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,20 +18,36 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorToolbar">
 
-            <TextView
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:textSize="18sp"
-                android:text="@string/new_type"
-                android:textColor="@color/colorTextDrawer"
-                android:gravity="center_horizontal" />
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:background="@color/colorToolbar"
+                    android:id="@+id/backArrowNewCase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_arrow_back_24px"
+                    android:tint="@color/colorTextDrawer" />
+
+                <TextView
+                    app:layout_constraintLeft_toRightOf="@id/backArrow"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="18sp"
+                    android:text="@string/new_case"
+                    android:textColor="@color/colorTextDrawer"
+                    android:gravity="center_horizontal|center_vertical" />
+            </android.support.constraint.ConstraintLayout>
+
 
             <ImageButton
                 android:contentDescription="@string/new_type"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/btn_add_type"
+                android:id="@+id/btnAddCase"
                 android:layout_gravity="end"
                 android:src="@drawable/ic_baseline_done_24px"
                 android:tint="@color/colorTextDrawer"
@@ -55,24 +71,16 @@
                 android:layout_marginStart="2dp" />
 
             <EditText
-                android:id="@+id/et_add_type"
+                android:id="@+id/etNewCase"
+                android:maxLength="20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/welcome_add_type_hintEt"
+                android:hint="@string/new_case_hint_name"
                 android:layout_marginTop="12dp">
 
                 <requestFocus />
             </EditText>
 
-            <Spinner
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:id="@+id/color_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_add_type"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="2dp"
-                android:dropDownSelector="@color/colorToolbar" />
         </RelativeLayout>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

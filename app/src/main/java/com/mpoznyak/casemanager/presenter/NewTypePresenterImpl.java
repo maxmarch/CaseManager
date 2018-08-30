@@ -2,21 +2,21 @@ package com.mpoznyak.casemanager.presenter;
 
 import android.content.Context;
 
-import com.mpoznyak.casemanager.interactor.WelcomeInteractor;
+import com.mpoznyak.casemanager.interactor.NewTypeInteractor;
 import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.domain.model.Type;
 
-public class AddTypePresenterImpl implements AddTypePresenter {
+public class NewTypePresenterImpl implements NewTypePresenter {
 
     Context mContext;
-    WelcomeInteractor mWelcomeInteractor;
+    NewTypeInteractor mNewTypeInteractor;
     DatabaseHelper mDatabaseHelper;
     Type mType;
 
-    public AddTypePresenterImpl(Context context) {
+    public NewTypePresenterImpl(Context context) {
         mContext = context;
         mDatabaseHelper = DatabaseHelper.getInstance(mContext);
-        mWelcomeInteractor = new WelcomeInteractor(mDatabaseHelper);
+        mNewTypeInteractor = new NewTypeInteractor(mDatabaseHelper);
         mType = new Type();
     }
 
@@ -24,6 +24,6 @@ public class AddTypePresenterImpl implements AddTypePresenter {
         mType.setName(name);
         mType.setColor(color);
         mType.setLastOpened(true);
-        mWelcomeInteractor.addType(mType);
+        mNewTypeInteractor.addType(mType);
     }
 }

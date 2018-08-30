@@ -10,7 +10,9 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_CAS
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_ENTRIES;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TODOS;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TABLE_TYPES;
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TRIGGER_TABLE_TYPES;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TRIGGER_TABLE_TYPES_ONINSERT;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.CREATE_TRIGGER_TABLE_TYPES_ONUPDATE;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.DISABLE_RECURSIVE_TRIGGERS;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -43,9 +45,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String TABLE_ENTRIES = "entries";
         public static final String COLUMN_PATH = "path";
 
-        public static final String CREATE_TRIGGER_TABLE_TYPES = "CREATE TRIGGER types_last_opened_all_to_default " +
+        public static final String DISABLE_RECURSIVE_TRIGGERS = "PRAGMA recursive_triggers = false";
+
+        public static final String CREATE_TRIGGER_TABLE_TYPES_ONINSERT = "CREATE TRIGGER types_last_opened_all_to_default " +
                 "BEFORE INSERT ON " + TABLE_TYPES + " BEGIN "
                 + "UPDATE " + TABLE_TYPES + " SET " + COLUMN_LAST_OPENED + " = 0; END;";
+
+        public static final String CREATE_TRIGGER_TABLE_TYPES_ONUPDATE = "CREATE TRIGGER types_onupdate_trigger " +
+                " BEFORE UPDATE ON " + TABLE_TYPES + " BEGIN " +
+                " UPDATE " + TABLE_TYPES + " SET " + COLUMN_LAST_OPENED + " = 0 WHERE " + COLUMN_LAST_OPENED + " = 1"
+                + "; END;";
+
+
 
         public static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -87,11 +98,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
+            db.execSQL(DISABLE_RECURSIVE_TRIGGERS);
             db.execSQL(CREATE_TABLE_TYPES);
             db.execSQL(CREATE_TABLE_TODOS);
             db.execSQL(CREATE_TABLE_ENTRIES);
             db.execSQL(CREATE_TABLE_CASES);
-            db.execSQL(CREATE_TRIGGER_TABLE_TYPES);
+            db.execSQL(CREATE_TRIGGER_TABLE_TYPES_ONINSERT);
+            db.execSQL(CREATE_TRIGGER_TABLE_TYPES_ONUPDATE);
         } catch (SQLException e) {
             Log.d(TAG, "Thrown exception during creating tables: " + e.getMessage());
         }

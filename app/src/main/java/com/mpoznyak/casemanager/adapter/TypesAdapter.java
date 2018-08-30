@@ -18,9 +18,14 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.TypeViewHold
 
     private Context mContext;
     private List<Type> mTypes;
+    private OnItemClickListener mListener;
 
-    public TypesAdapter(Context context, List<Type> types) {
-        mContext = context;
+    public interface OnItemClickListener {
+        void onItemClick(View view);
+    }
+
+    public TypesAdapter(List<Type> types, OnItemClickListener listener) {
+        mListener = listener;
         mTypes = types;
     }
 
@@ -30,6 +35,12 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.TypeViewHold
 
         private TypeViewHolder(View view) {
             super(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(v);
+                }
+            });
             mImageView = (ImageView) view.findViewById(R.id.circle_drawable);
             mName = (TextView) view.findViewById(R.id.type_name);
         }

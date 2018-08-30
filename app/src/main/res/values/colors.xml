@@ -10,4 +10,8 @@
     <color name="colorNavigationBar">#304049</color>
     <color name="colorTextInTypeList">#FFFFFF</color>
     <color name="colorTextDrawer">#FFFFFF</color>
+    <color name="colorCaseToolbar">#344955</color>
+    <color name="colorTextOnDarkBackground">#FFFFFF</color>
+    <color name="colorViewPagerDefault">#344955</color>
+
 </resources>

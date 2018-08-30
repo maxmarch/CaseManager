@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="?attr/colorPrimaryDark"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical"
+    android:gravity="bottom">
+
+    <Button
+        android:id="@+id/main_add_type"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/colorNavigationBar"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_baseline_add_30pxaccent"
+        android:focusable="true"
+        android:fontFamily="@font/roboto"
+        android:foregroundGravity="center_vertical"
+        android:gravity="start|center_vertical"
+        android:paddingBottom="5dp"
+        android:text="@string/new_type"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="25sp" />
+
+</LinearLayout>

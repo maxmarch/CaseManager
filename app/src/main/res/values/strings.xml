@@ -2,7 +2,8 @@
     <string name="welcome_message">Welcome to CaseManager. Here your documents and photos
         can be grouped in cases to ease the access to them, to upload
         them to cloud storages in a convinient way or to send through e-mail.</string>
-    <string name="add_type">New Type</string>
+    <string name="new_type">New Type</string>
+    <string name="new_case">New Case</string>
     <string name="start">Start</string>
     <string name="app_name">CaseManager</string>
     <string name="types_of_cases">Types Of Cases</string>
@@ -10,7 +11,7 @@
     <string name="circle_description">color circle</string>
     <string name="welome_add_type_nameTv">Name</string>
     <string name="welcome_add_type_hintEt"><i>E.g. Business Documents</i></string>
+    <string name="new_case_hint_name"><i>E.g. The Contract and Annex LLC Browns</i></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

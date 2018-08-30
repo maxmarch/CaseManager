@@ -17,6 +17,7 @@ public class Case implements Comparable<Case>{
     private String mType;
 
     public Case() {
+        setCreationDate(new Date());
     }
 
     public String getType() {

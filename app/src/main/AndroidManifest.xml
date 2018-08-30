@@ -17,7 +17,9 @@
         </activity>
         <activity android:name=".view.activity.WelcomeActivity" />
         <activity android:name=".view.activity.WelcomeAddTypeActivity" />
-        <activity android:name=".view.activity.MainAddTypeActivity" />
+        <activity android:name=".view.activity.NewTypeActivity" />
+        <activity android:name=".view.activity.NewCaseActivity" />
+        <activity android:name=".view.activity.CaseActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

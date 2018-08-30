@@ -1,6 +1,7 @@
 package com.mpoznyak.casemanager.view.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +15,16 @@ import android.widget.Toast;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.ColorSpinnerArrayAdapter;
-import com.mpoznyak.casemanager.presenter.AddTypePresenter;
-import com.mpoznyak.casemanager.presenter.AddTypePresenterImpl;
+import com.mpoznyak.casemanager.presenter.NewTypePresenter;
+import com.mpoznyak.casemanager.presenter.NewTypePresenterImpl;
 import com.mpoznyak.domain.model.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAddTypeActivity extends AppCompatActivity {
+public class NewTypeActivity extends AppCompatActivity {
 
-    private AddTypePresenter mWelcomePresenter;
+    private NewTypePresenter mWelcomePresenter;
     private ColorSpinnerArrayAdapter mAdapter;
     private ConstraintLayout mConstraintLayout;
     private ImageButton mBackButton;
@@ -33,8 +34,8 @@ public class MainAddTypeActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_add_type);
-        mWelcomePresenter = new AddTypePresenterImpl(this);
+        setContentView(R.layout.activity_new_type);
+        mWelcomePresenter = new NewTypePresenterImpl(this);
         ImageButton addTypeButton = findViewById(R.id.btn_add_type);
         mConstraintLayout = findViewById(R.id.typeadding_screen);
         mConstraintLayout.setOnTouchListener((v, w) -> {
@@ -50,17 +51,22 @@ public class MainAddTypeActivity extends AppCompatActivity {
         addTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = typeNameInput.getText().toString();
-                Color color = (Color) colorSpinner.getSelectedItem();
-                if (!(name.equals("") || name.equals(" ") || name == null)) {
-                    mWelcomePresenter.saveType(name, color.getHexColorCode());
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    finish();
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "You should define a name of your case's type", Toast.LENGTH_LONG).show();
-                    Log.d(this.getClass().getSimpleName(), "CLICK");
+                try {
+                    String name = typeNameInput.getText().toString();
+                    Color color = (Color) colorSpinner.getSelectedItem();
+                    if (!(name.equals("") || name.equals(" ") || name == null)) {
+                        mWelcomePresenter.saveType(name, color.getHexColorCode());
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        finish();
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "You should define a name of your case's type", Toast.LENGTH_LONG).show();
+                        Log.d(this.getClass().getSimpleName(), "CLICK");
+                    }
+                } catch (SQLiteConstraintException e) {
+                    Toast.makeText(getApplicationContext(), "You've already defined the type with this name!",
+                            Toast.LENGTH_LONG).show();
                 }
 
             }

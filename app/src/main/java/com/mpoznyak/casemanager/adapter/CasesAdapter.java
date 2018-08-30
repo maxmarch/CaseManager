@@ -1,6 +1,5 @@
 package com.mpoznyak.casemanager.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +14,16 @@ import java.util.List;
 
 public class CasesAdapter extends RecyclerView.Adapter<CasesAdapter.CaseViewHolder> {
 
-    private Context mContext;
-    private List<Case> mCases;
 
-    public CasesAdapter(Context context, List<Case> cases) {
-        mContext = context;
+    private List<Case> mCases;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v);
+    }
+
+    public CasesAdapter(List<Case> cases, OnItemClickListener listener) {
+        mListener = listener;
         mCases = cases;
     }
 
@@ -29,6 +33,13 @@ public class CasesAdapter extends RecyclerView.Adapter<CasesAdapter.CaseViewHold
 
         public CaseViewHolder(View view) {
             super(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(v);
+
+                }
+            });
             mCardView = (CardView) view.findViewById(R.id.mainCasesCard);
             mName = (TextView) view.findViewById(R.id.mainCaseName);
             mDate = (TextView) view.findViewById(R.id.mainCaseDate);

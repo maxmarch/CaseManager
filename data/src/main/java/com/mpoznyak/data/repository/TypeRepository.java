@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_ID;
-import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_ENTRIES;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TYPES;
 
 
@@ -40,7 +39,7 @@ public class TypeRepository implements Repository<Type> {
         try {
             for (Type type : items) {
                 final ContentValues cv = ToContentValuesFromType.map(type);
-                database.insert(TABLE_TYPES, null, cv);
+                database.insertOrThrow(TABLE_TYPES, null, cv);
                 database.setTransactionSuccessful();
             }
         } finally {
@@ -65,7 +64,7 @@ public class TypeRepository implements Repository<Type> {
         ContentValues cv = ToContentValuesFromType.map(item);
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
         try {
-            database.update(TABLE_ENTRIES, cv, COLUMN_ID + " = ?"
+            database.update(TABLE_TYPES, cv, COLUMN_ID + " = ?"
                     , new String[]{String.valueOf(item.getId())});
         } finally {
             database.close();

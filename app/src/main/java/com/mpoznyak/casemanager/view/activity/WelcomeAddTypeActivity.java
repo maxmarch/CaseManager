@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.ColorSpinnerArrayAdapter;
-import com.mpoznyak.casemanager.presenter.AddTypePresenter;
-import com.mpoznyak.casemanager.presenter.AddTypePresenterImpl;
+import com.mpoznyak.casemanager.presenter.NewTypePresenter;
+import com.mpoznyak.casemanager.presenter.NewTypePresenterImpl;
 import com.mpoznyak.domain.model.Color;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class WelcomeAddTypeActivity extends AppCompatActivity {
 
-    private AddTypePresenter mWelcomePresenter;
+    private NewTypePresenter mNewTypePresenter;
     private ColorSpinnerArrayAdapter mAdapter;
     private ConstraintLayout mConstraintLayout;
     private List<Color> mColors;
@@ -33,7 +33,7 @@ public class WelcomeAddTypeActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_add_type);
-        mWelcomePresenter = new AddTypePresenterImpl(this);
+        mNewTypePresenter = new NewTypePresenterImpl(this);
         ImageButton addTypeButton = findViewById(R.id.btn_add_type);
         mConstraintLayout = findViewById(R.id.typeadding_screen);
         mConstraintLayout.setOnTouchListener((v, w) -> {
@@ -52,7 +52,7 @@ public class WelcomeAddTypeActivity extends AppCompatActivity {
                 String name = typeNameInput.getText().toString();
                 Color color = (Color) colorSpinner.getSelectedItem();
                 if (!(name.equals("") || name.equals(" ") || name == null)) {
-                    mWelcomePresenter.saveType(name, color.getHexColorCode());
+                    mNewTypePresenter.saveType(name, color.getHexColorCode());
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     finish();
                     startActivity(intent);

@@ -61,5 +61,9 @@ public class MainInteractor {
         mAddType.execute(type, mTypeRepository);
     }
 
+    public void updateType(Type type) {
+        mTypeRepository.update(type);
+    }
+
 
 }

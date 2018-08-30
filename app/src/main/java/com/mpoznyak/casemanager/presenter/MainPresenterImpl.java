@@ -47,4 +47,9 @@ public class MainPresenterImpl implements MainPresenter {
         return mMainInteractor.getCasesByType(type);
     }
 
+    @Override
+    public void updateType(Type type) {
+        mMainInteractor.updateType(type);
+    }
+
 }
