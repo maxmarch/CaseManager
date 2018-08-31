@@ -12,6 +12,8 @@
     <string name="welome_add_type_nameTv">Name</string>
     <string name="welcome_add_type_hintEt"><i>E.g. Business Documents</i></string>
     <string name="new_case_hint_name"><i>E.g. The Contract and Annex LLC Browns</i></string>
+    <string name="page1">Documents</string>
+    <string name="page2">Photos</string>
 
 
 </resources>

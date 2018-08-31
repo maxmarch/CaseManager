@@ -14,7 +14,7 @@ import com.mpoznyak.domain.model.Type;
 
 import java.util.List;
 
-public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.TypeViewHolder> {
+public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder> {
 
     private Context mContext;
     private List<Type> mTypes;
@@ -24,7 +24,7 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.TypeViewHold
         void onItemClick(View view);
     }
 
-    public TypesAdapter(List<Type> types, OnItemClickListener listener) {
+    public TypeAdapter(List<Type> types, OnItemClickListener listener) {
         mListener = listener;
         mTypes = types;
     }

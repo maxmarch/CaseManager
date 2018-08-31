@@ -12,7 +12,7 @@ import com.mpoznyak.domain.model.Case;
 
 import java.util.List;
 
-public class CasesAdapter extends RecyclerView.Adapter<CasesAdapter.CaseViewHolder> {
+public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder> {
 
 
     private List<Case> mCases;
@@ -22,7 +22,7 @@ public class CasesAdapter extends RecyclerView.Adapter<CasesAdapter.CaseViewHold
         void onItemClick(View v);
     }
 
-    public CasesAdapter(List<Case> cases, OnItemClickListener listener) {
+    public CaseAdapter(List<Case> cases, OnItemClickListener listener) {
         mListener = listener;
         mCases = cases;
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
 
     >
@@ -31,42 +31,52 @@
                     android:layout_height="?attr/actionBarSize">
 
                     <ImageButton
-                        android:background="@color/colorToolbar"
                         android:id="@+id/btnBackArrowCaseView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/colorToolbar"
                         android:src="@drawable/ic_baseline_arrow_back_24px"
                         android:tint="@color/colorTextDrawer" />
 
                     <ImageButton
-                        android:contentDescription="@string/new_type"
+                        android:id="@+id/btnOpenTodoList"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:id="@+id/btnOpenTodoList"
                         android:layout_gravity="end"
-                        android:src="@drawable/ic_baseline_list_alt_24px"
-                        android:tint="@color/colorTextDrawer"
+                        android:layout_marginEnd="15dp"
                         android:background="@color/colorToolbar"
-                        android:layout_marginEnd="15dp" />
+                        android:contentDescription="@string/new_type"
+                        android:src="@drawable/ic_baseline_list_alt_24px"
+                        android:tint="@color/colorTextDrawer" />
                 </android.support.v7.widget.Toolbar>
 
                 <TextView
 
-                    app:layout_constraintTop_toBottomOf="@id/caseToolbar"
-                    android:text="MY NEW NAME CONTRACT"
                     android:id="@+id/caseName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextOnDarkBackground" />
+                    android:text="MY NEW NAME CONTRACT"
+                    android:textColor="@color/colorTextOnDarkBackground"
+                    app:layout_constraintTop_toBottomOf="@id/caseToolbar" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <android.support.v4.view.ViewPager
+        <android.support.design.widget.TabLayout
+            android:clickable="false"
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorViewPagerDefault">
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            android:background="@color/colorViewPagerDefault"
+            app:tabTextColor="@color/colorTextOnDarkBackground"
+            app:tabSelectedTextColor="@color/colorAccent" />
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/caseViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorViewPagerDefault">
         </android.support.v4.view.ViewPager>
 
         <android.support.v4.widget.NestedScrollView

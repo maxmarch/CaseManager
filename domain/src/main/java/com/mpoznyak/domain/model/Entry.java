@@ -5,18 +5,14 @@ import java.text.SimpleDateFormat;
 
 public class Entry {
 
-    private int mId;
-    private File mPath;
-    private int mCase_Id;
-    private String mName;
-    private long mSize;
-    private String mLastModified;
+    protected int mId;
+    protected File mPath;
+    protected int mCase_Id;
+    protected String mName;
+    protected long mSize;
+    protected String mLastModified;
 
-    public Entry(String path) {
-        mPath = new File(path);
-        setNameFromPath();
-        mSize = mPath.length();
-        setLastModifiedDate();
+    public Entry() {
     }
 
     public File getPath() {
@@ -47,7 +43,7 @@ public class Entry {
         return mName;
     }
 
-    private void setNameFromPath() {
+    public void setNameFromPath() {
         mName = mPath.getName();
     }
 
@@ -59,7 +55,7 @@ public class Entry {
         return mLastModified;
     }
 
-    private void setLastModifiedDate() {
+    public void setLastModifiedDate() {
         long millis = mPath.lastModified();
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         mLastModified = pattern.format(millis);
