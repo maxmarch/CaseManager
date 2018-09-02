@@ -1,8 +1,12 @@
 package com.mpoznyak.casemanager.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -41,13 +45,22 @@ public class MainActivity extends AppCompatActivity {
     private String currentType;
     private List<Case> mCases;
     private List<Type> mTypes;
+    int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
+
+    //TODO move to presenter rewrite it
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMainPresenter = new MainPresenterImpl(this);
         setContentView(R.layout.activity_main);
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        }
 
         mAddTypeButton = findViewById(R.id.main_add_type);
         mAddTypeButton.setOnClickListener(v -> {
@@ -84,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onItemClick(View view) {
                         int position = mTypesRecyclerView.getChildLayoutPosition(view);
                         Case aCase = mCases.get(position);
-
+                        int caseId = aCase.getId();
                         Intent intent = new Intent(getApplicationContext(), CaseActivity.class);
+                        intent.putExtra("caseId", caseId);
                         startActivity(intent);
 
 

@@ -88,4 +88,17 @@
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/openFileManager"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_baseline_add_24px"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/colorBtnRippleAddCase" />
+
+
 </android.support.design.widget.CoordinatorLayout>

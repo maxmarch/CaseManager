@@ -46,6 +46,7 @@ public class PhotoGalleryFragment extends Fragment {
             @Override
             public void onItemClick(View v) {
 
+
             }
         });
         mRecyclerView.setAdapter(mPhotoAdapter);

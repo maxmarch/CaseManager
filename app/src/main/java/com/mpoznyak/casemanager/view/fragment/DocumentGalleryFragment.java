@@ -1,6 +1,7 @@
 package com.mpoznyak.casemanager.view.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class DocumentGalleryFragment extends Fragment {
 
+    private FloatingActionButton mBtnOpenFileManager;
     private RecyclerView mRecyclerView;
     private DocumentAdapter mDocumentAdapter;
     private List<Document> mDocuments;
@@ -47,7 +49,10 @@ public class DocumentGalleryFragment extends Fragment {
 
             }
         });
+
         mRecyclerView.setAdapter(mDocumentAdapter);
+        mBtnOpenFileManager = view.findViewById(R.id.openFileManager);
+
         return view;
 
     }

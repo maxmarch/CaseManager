@@ -50,7 +50,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder
     @Override
     public CaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_case, parent, false);
+                .inflate(R.layout.item_case_main, parent, false);
         return new CaseViewHolder(v);
     }
 

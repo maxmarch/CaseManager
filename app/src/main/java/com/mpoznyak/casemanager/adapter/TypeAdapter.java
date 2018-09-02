@@ -50,7 +50,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
     @Override
     public TypeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_type, parent, false);
+                .inflate(R.layout.item_type_main, parent, false);
         return new TypeViewHolder(v);
     }
 

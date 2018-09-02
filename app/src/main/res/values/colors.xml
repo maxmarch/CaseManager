@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#82929A</color>
     <color name="colorToolbar">#344955</color>
     <color name="colorAccent">#EEA21C</color>
+    <color name="colorSelectedItem">#BBEEA21C</color>
     <color name="colorBackgroundWindow">#ECF0F2</color>
     <color name="colorCard">#FEFEFE</color>
     <color name="colorBtnRippleAddCase">#F9BA4C</color>
