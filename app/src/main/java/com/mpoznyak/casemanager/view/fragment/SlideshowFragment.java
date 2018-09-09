@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,12 +76,19 @@ public class SlideshowFragment extends DialogFragment {
         lblCount = v.findViewById(R.id.sliderCount);
         lblTitle = v.findViewById(R.id.sliderTitle);
         lblDate = v.findViewById(R.id.sliderDate);
-
-
+        mToolbar = v.findViewById(R.id.toolbarPhotoSlider);
+        mSendButton = v.findViewById(R.id.sendBtnPreviewPhoto);
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
+        File photo = mPhotos.get(mSelectedPositionPhotoList);
+        mSendButton.setOnClickListener(w -> {
+            mMediaManagerInteractor.addPhoto(photo);
+            Log.d(SlideshowFragment.class.getSimpleName(), "Positiion " + photo.getName());
+            getActivity().getSupportFragmentManager()
+                    .popBackStack();
+        });
         setCurrentItem(mSelectedPositionPhotoList);
 
         return v;
@@ -94,6 +102,13 @@ public class SlideshowFragment extends DialogFragment {
 
         @Override
         public void onPageSelected(int position) {
+            File photo = mPhotos.get(position);
+            mSendButton.setOnClickListener(w -> {
+                mMediaManagerInteractor.addPhoto(photo);
+                Log.d(SlideshowFragment.class.getSimpleName(), "Positiion " + photo.getName());
+                getActivity().getSupportFragmentManager()
+                        .popBackStack();
+            });
         }
 
         @Override
@@ -131,13 +146,6 @@ public class SlideshowFragment extends DialogFragment {
             ImageView photoPreview = (ImageView) v.findViewById(R.id.photoPreview);
 
             File photo = mPhotos.get(position);
-            mToolbar = v.findViewById(R.id.toolbarPreviewPhoto);
-            mSendButton = v.findViewById(R.id.sendBtnPreviewPhoto);
-            mSendButton.setOnClickListener(w -> {
-                mMediaManagerInteractor.addPhoto(photo);
-                getActivity().getSupportFragmentManager()
-                        .popBackStack();
-            });
 
             Glide.with(getActivity()).load(photo)
                     .thumbnail(0.5f)
