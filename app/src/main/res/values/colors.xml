@@ -13,6 +13,10 @@
     <color name="colorTextDrawer">#FFFFFF</color>
     <color name="colorCaseToolbar">#344955</color>
     <color name="colorTextOnDarkBackground">#FFFFFF</color>
-    <color name="colorViewPagerDefault">#344955</color>
+    <color name="colorViewPager">#FFFFFF</color>
+    <color name="colorCaseActivityBackground">#FFFFFF</color>
+    <color name="colorTabLayoutCaseActivity">#344955</color>
+    <color name="colorDocumentItem">#FFFFFF</color>
+    <color name="colorSendDrawable">#ffffff</color>
 
 </resources>

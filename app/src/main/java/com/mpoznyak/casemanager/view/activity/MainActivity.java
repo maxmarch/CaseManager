@@ -54,76 +54,81 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMainPresenter = new MainPresenterImpl(this);
-        setContentView(R.layout.activity_main);
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        }
-
-        mAddTypeButton = findViewById(R.id.main_add_type);
-        mAddTypeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, NewTypeActivity.class);
-            startActivity(intent);
-        });
-
-        mCasesRecyclerView = findViewById(R.id.main_cases_recyclerview);
-        mTypesRecyclerView = findViewById(R.id.main_types_recyclerview);
-        mTypes = mMainPresenter.loadTypes();
-        mTypeAdapter = new TypeAdapter(mTypes, new TypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view) {
-                int position = mTypesRecyclerView.getChildLayoutPosition(view);
-                Type type = mTypes.get(position);
-                type.setLastOpened(true);
-                mMainPresenter.updateType(type);
-                List<Case> list = mMainPresenter.loadCasesBySelectedType(type.getName());
-                mCases.clear();
-                mCases.addAll(list);
-                mCaseAdapter.notifyDataSetChanged();
-                currentType = type.getName();
-                mNameToolbarTv.setText(currentType);
-                mDrawerLayout.closeDrawers();
-
-
+        if (mMainPresenter.typeDataisEmpty()) {
+            Intent welcomeIntent = new Intent(this, WelcomeActivity.class);
+            startActivity(welcomeIntent);
+        } else {
+            setContentView(R.layout.activity_main);
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CALENDAR)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
-        });
-        mTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mCases = mMainPresenter.loadCasesByLastOpenedType();
-        mCaseAdapter = new CaseAdapter(mCases,
-                new CaseAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view) {
-                        int position = mTypesRecyclerView.getChildLayoutPosition(view);
-                        Case aCase = mCases.get(position);
-                        int caseId = aCase.getId();
-                        Intent intent = new Intent(getApplicationContext(), CaseActivity.class);
-                        intent.putExtra("caseId", caseId);
-                        startActivity(intent);
+
+            mAddTypeButton = findViewById(R.id.main_add_type);
+            mAddTypeButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, NewTypeActivity.class);
+                startActivity(intent);
+            });
+
+            mCasesRecyclerView = findViewById(R.id.main_cases_recyclerview);
+            mTypesRecyclerView = findViewById(R.id.main_types_recyclerview);
+            mTypes = mMainPresenter.loadTypes();
+            mTypeAdapter = new TypeAdapter(mTypes, new TypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view) {
+                    int position = mTypesRecyclerView.getChildLayoutPosition(view);
+                    Type type = mTypes.get(position);
+                    type.setLastOpened(true);
+                    mMainPresenter.updateType(type);
+                    List<Case> list = mMainPresenter.loadCasesBySelectedType(type.getName());
+                    mCases.clear();
+                    mCases.addAll(list);
+                    mCaseAdapter.notifyDataSetChanged();
+                    currentType = type.getName();
+                    mNameToolbarTv.setText(currentType);
+                    mDrawerLayout.closeDrawers();
 
 
-                    }
-                });
-        mCasesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mCasesRecyclerView.setAdapter(mCaseAdapter);
-        mTypesRecyclerView.setAdapter(mTypeAdapter);
+                }
+            });
+            mTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mCases = mMainPresenter.loadCasesByLastOpenedType();
+            mCaseAdapter = new CaseAdapter(mCases,
+                    new CaseAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view) {
+                            int position = mTypesRecyclerView.getChildLayoutPosition(view);
+                            Case aCase = mCases.get(position);
+                            int caseId = aCase.getId();
+                            Intent intent = new Intent(getApplicationContext(), CaseActivity.class);
+                            intent.putExtra("caseId", caseId);
+                            startActivity(intent);
 
-        mNameToolbarTv = findViewById(R.id.mainNameToolbarTv);
-        mToolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(mToolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
 
-        mDrawerLayout = findViewById(R.id.main_drawer_layout);
+                        }
+                    });
+            mCasesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mCasesRecyclerView.setAdapter(mCaseAdapter);
+            mTypesRecyclerView.setAdapter(mTypeAdapter);
 
-        mNewCaseBtn = findViewById(R.id.fabNewCase);
-        mNewCaseBtn.setOnClickListener(v -> {
-            Intent newCaseIntent = new Intent(this, NewCaseActivity.class);
-            newCaseIntent.putExtra("type", currentType);
-            startActivity(newCaseIntent);
-        });
+            mNameToolbarTv = findViewById(R.id.mainNameToolbarTv);
+            mToolbar = findViewById(R.id.main_toolbar);
+            setSupportActionBar(mToolbar);
+            actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+
+            mDrawerLayout = findViewById(R.id.main_drawer_layout);
+
+            mNewCaseBtn = findViewById(R.id.fabNewCase);
+            mNewCaseBtn.setOnClickListener(v -> {
+                Intent newCaseIntent = new Intent(this, NewCaseActivity.class);
+                newCaseIntent.putExtra("type", currentType);
+                startActivity(newCaseIntent);
+            });
+        }
 
     }
 
@@ -131,10 +136,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        mTypeAdapter.notifyDataSetChanged();
-        mCaseAdapter.notifyDataSetChanged();
-        currentType = mMainPresenter.loadNameForLastOpenedType();
-        mNameToolbarTv.setText(currentType);
+        if (!mMainPresenter.typeDataisEmpty()) {
+            mTypeAdapter.notifyDataSetChanged();
+            mCaseAdapter.notifyDataSetChanged();
+            currentType = mMainPresenter.loadNameForLastOpenedType();
+            mNameToolbarTv.setText(currentType);
+        }
     }
 
     @Override

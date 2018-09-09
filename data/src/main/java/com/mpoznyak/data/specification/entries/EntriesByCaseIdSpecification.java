@@ -5,11 +5,11 @@ import com.mpoznyak.domain.repository.Specification;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_ENTRIES;
 
-public class EntryByCaseIdSpecification implements Specification {
+public class EntriesByCaseIdSpecification implements Specification {
 
     private int caseId;
 
-    public EntryByCaseIdSpecification(int id) {
+    public EntriesByCaseIdSpecification(int id) {
         caseId = id;
     }
 

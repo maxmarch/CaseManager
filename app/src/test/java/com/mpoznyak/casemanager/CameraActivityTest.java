@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class MainActivityTest {
+public class CameraActivityTest {
 
     @Test
     public void create() {

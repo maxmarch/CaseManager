@@ -10,22 +10,24 @@ import android.view.ViewGroup;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.PhotoAdapter;
-import com.mpoznyak.data.model.Photo;
+import com.mpoznyak.data.wrapper.PhotoWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class PhotoGalleryFragment extends Fragment {
+public class PhotosFragment extends Fragment implements Observer {
 
     private RecyclerView mRecyclerView;
-    private PhotoAdapter mPhotoAdapter;
-    private List<Photo> mPhotos;
+    private PhotoAdapter mPhotosAdapter;
+    private List<PhotoWrapper> mPhotoWrappers;
     private static final String KEY = "photos";
 
-    public static PhotoGalleryFragment newInstance(ArrayList<Photo> photos) {
-        PhotoGalleryFragment fragment = new PhotoGalleryFragment();
+    public static PhotosFragment newInstance(ArrayList<PhotoWrapper> photoWrappers) {
+        PhotosFragment fragment = new PhotosFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(KEY, photos);
+        args.putParcelableArrayList(KEY, photoWrappers);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,24 +35,30 @@ public class PhotoGalleryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedStateInstance) {
         super.onCreate(savedStateInstance);
-        mPhotos = getArguments().getParcelableArrayList(KEY);
+        mPhotoWrappers = getArguments().getParcelableArrayList(KEY);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_photo_gallery, parent, false);
         mRecyclerView = view.findViewById(R.id.photo_recycler_view);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        //TODO init entries or path it from activity
-        mPhotoAdapter = new PhotoAdapter(mPhotos, new PhotoAdapter.OnItemClickListener() {
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        mPhotosAdapter = new PhotoAdapter(mPhotoWrappers, new PhotoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v) {
 
 
             }
-        });
-        mRecyclerView.setAdapter(mPhotoAdapter);
+        }, getActivity());
+        mRecyclerView.setAdapter(mPhotosAdapter);
         return view;
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        View root = getView();
+        mPhotosAdapter.notifyDataSetChanged();
     }
 }

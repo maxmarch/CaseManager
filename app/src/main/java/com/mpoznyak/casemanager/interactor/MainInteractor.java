@@ -48,6 +48,7 @@ public class MainInteractor {
     }
 
     public String getNameLastOpenedType() {
+
         return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification())
                 .get(0)
                 .getName();

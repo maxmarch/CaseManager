@@ -39,8 +39,13 @@ public class Entry {
         mPath = new File(path);
     }
 
+    public void setPath(File path) {
+        mPath = path;
+    }
+
+
     public String getName() {
-        return mName;
+        return mPath.getName();
     }
 
     public void setNameFromPath() {
@@ -48,17 +53,15 @@ public class Entry {
     }
 
     public long getSize() {
-        return mSize;
+        return mPath.length() / 1024;
     }
+
 
     public String getLastModified() {
-        return mLastModified;
-    }
-
-    public void setLastModifiedDate() {
         long millis = mPath.lastModified();
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         mLastModified = pattern.format(millis);
+        return mLastModified;
     }
 
     @Override

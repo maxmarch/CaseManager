@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Welcome to CaseManager. Here your documents and photos
+    <string name="welcome_message">Welcome to CaseManager. Here your documentWrappers and photoWrappers
         can be grouped in cases to ease the access to them, to upload
         them to cloud storages in a convinient way or to send through e-mail.</string>
     <string name="new_type">New Type</string>

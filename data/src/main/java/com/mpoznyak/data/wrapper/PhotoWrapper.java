@@ -1,4 +1,4 @@
-package com.mpoznyak.data.model;
+package com.mpoznyak.data.wrapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,28 +6,31 @@ import android.os.Parcelable;
 import com.mpoznyak.domain.model.Entry;
 
 
-public class Document extends Entry implements Parcelable {
+public class PhotoWrapper extends Entry implements Parcelable {
 
-
-    public static final Parcelable.Creator CREATOR = new Creator() {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         @Override
         public Object createFromParcel(Parcel source) {
-            return new Document(source);
+            return new PhotoWrapper(source);
         }
 
         @Override
         public Object[] newArray(int size) {
-            return new Document[size];
+            return new PhotoWrapper[size];
         }
     };
 
-    public Document(Parcel source) {
+    public PhotoWrapper(Parcel source) {
 
         mId = source.readInt();
         mCase_Id = source.readInt();
         mName = source.readString();
         mLastModified = source.readString();
         mSize = source.readLong();
+
+    }
+
+    public PhotoWrapper() {
 
     }
 
