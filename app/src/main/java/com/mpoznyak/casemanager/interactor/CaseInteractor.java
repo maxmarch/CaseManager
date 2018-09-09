@@ -7,6 +7,7 @@ import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
 import com.mpoznyak.domain.model.Entry;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,5 +60,12 @@ public class CaseInteractor {
             docs.add(doc);
         }
         return docs;
+    }
+
+    public void savePhoto(File file, int caseId) {
+        Entry entry = new Entry();
+        entry.setCaseId(caseId);
+        entry.setPath(file.getPath());
+        mEntryRepository.add(entry);
     }
 }

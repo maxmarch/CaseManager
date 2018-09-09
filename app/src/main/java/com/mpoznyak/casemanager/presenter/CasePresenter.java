@@ -7,6 +7,7 @@ import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CasePresenter {
@@ -32,4 +33,10 @@ public class CasePresenter {
     public ArrayList<PhotoWrapper> loadPhotosFromDb() {
         return mCaseInteractor.getPhotosByCaseId(mCaseId);
     }
+
+    public void savePhoto(File file) {
+        mCaseInteractor.savePhoto(file, mCaseId);
+    }
+
+
 }

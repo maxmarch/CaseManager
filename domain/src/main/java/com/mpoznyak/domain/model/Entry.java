@@ -48,10 +48,6 @@ public class Entry {
         return mPath.getName();
     }
 
-    public void setNameFromPath() {
-        mName = mPath.getName();
-    }
-
     public long getSize() {
         return mPath.length() / 1024;
     }

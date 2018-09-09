@@ -14,6 +14,9 @@
     <string name="new_case_hint_name"><i>E.g. The Contract and Annex LLC Browns</i></string>
     <string name="page1">Documents</string>
     <string name="page2">Photos</string>
+    <string name="add_photo">Add photo</string>
+    <string name="take_photo">Take photo</string>
+    <string name="add_documents">Add documents</string>
 
 
 </resources>
