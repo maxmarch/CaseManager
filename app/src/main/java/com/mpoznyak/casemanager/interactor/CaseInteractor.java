@@ -50,22 +50,30 @@ public class CaseInteractor {
         return photos;
     }
 
-    private ArrayList<DocumentWrapper> convertEntryToDocument(List<Entry> entries) {
-        ArrayList<DocumentWrapper> docs = new ArrayList<>();
-        for (Entry entry : entries) {
-            DocumentWrapper doc = new DocumentWrapper();
-            doc.setCaseId(entry.getCase_Id());
-            doc.setId(entry.getId());
-            doc.setPath(entry.getPath());
-            docs.add(doc);
-        }
-        return docs;
-    }
-
     public void savePhoto(File file, int caseId) {
         Entry entry = new Entry();
         entry.setCaseId(caseId);
         entry.setPath(file.getPath());
         mEntryRepository.add(entry);
     }
+
+    private ArrayList<DocumentWrapper> convertEntryToDocument(List<Entry> entries) {
+        ArrayList<DocumentWrapper> docs = new ArrayList<>();
+        for (Entry entry : entries) {
+            if (entry.getPath().toString().endsWith(".doc")
+                    || entry.getPath().toString().endsWith(".pdf")
+                    || entry.getPath().toString().endsWith(".docx")
+                    || entry.getPath().toString().endsWith(".xls")
+                    || entry.getPath().toString().endsWith(".xlsx")) {
+                DocumentWrapper doc = new DocumentWrapper();
+                doc.setCaseId(entry.getCase_Id());
+                doc.setId(entry.getId());
+                doc.setPath(entry.getPath());
+                docs.add(doc);
+            }
+        }
+        return docs;
+    }
+
+
 }

@@ -17,6 +17,8 @@
     <string name="add_photo">Add photo</string>
     <string name="take_photo">Take photo</string>
     <string name="add_documents">Add documents</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 
 
 </resources>

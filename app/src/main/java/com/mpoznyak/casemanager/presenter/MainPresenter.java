@@ -1,22 +1,57 @@
 package com.mpoznyak.casemanager.presenter;
 
+import android.content.Context;
+
+import com.mpoznyak.casemanager.interactor.MainInteractor;
+import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.model.Type;
 
 import java.util.List;
 
-public interface MainPresenter {
+public class MainPresenter {
 
-    boolean typeDataisEmpty();
+    private MainInteractor mMainInteractor;
+    private Context mContext;
+    private DatabaseHelper mDatabaseHelper;
 
-    List<Type> loadTypes();
+    public MainPresenter(Context context) {
+        mContext = context;
+        mDatabaseHelper = DatabaseHelper.getInstance(mContext);
+        mMainInteractor = new MainInteractor(mDatabaseHelper);
+    }
 
-    List<Case> loadCasesByLastOpenedType();
 
-    List<Case> loadCasesBySelectedType(String type);
+    public boolean typeDataisEmpty() {
+        return 0 == mMainInteractor.getAllTypes().size();
+    }
 
-    String loadNameForLastOpenedType();
+    public List<Type> loadTypes() {
+        return mMainInteractor.getAllTypes();
+    }
 
-    void updateType(Type type);
+    public List<Case> loadCasesByLastOpenedType() {
+        return mMainInteractor.getCasesByLastOpenedType();
+    }
+
+    public String loadNameForLastOpenedType() {
+        return mMainInteractor.getNameLastOpenedType();
+    }
+
+    public List<Case> loadCasesBySelectedType(String type) {
+        return mMainInteractor.getCasesByType(type);
+    }
+
+    public void updateType(Type type) {
+        mMainInteractor.updateType(type);
+    }
+
+    public void deleteCase(Case aCase) {
+        mMainInteractor.deleteCase(aCase);
+    }
+
+    public void deleteType(Type type) {
+        mMainInteractor.deleteType(type);
+    }
 
 }

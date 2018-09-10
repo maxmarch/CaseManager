@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_ID;
+import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.COLUMN_NAME;
 import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TYPES;
 
 
@@ -52,8 +53,8 @@ public class TypeRepository implements Repository<Type> {
     public void remove(Type item) {
         final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
         try {
-            database.delete(TABLE_TYPES, COLUMN_ID + "= ?"
-                    , new String[]{String.valueOf(item.getId())});
+            database.delete(TABLE_TYPES, COLUMN_NAME + "= ?"
+                    , new String[]{String.valueOf(item.getName())});
         } finally {
             database.close();
         }

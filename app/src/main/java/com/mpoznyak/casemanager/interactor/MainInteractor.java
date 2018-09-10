@@ -66,5 +66,13 @@ public class MainInteractor {
         mTypeRepository.update(type);
     }
 
+    public void deleteCase(Case aCase) {
+        mCaseRepository.remove(aCase);
+    }
+
+    public void deleteType(Type type) {
+        mTypeRepository.remove(type);
+    }
+
 
 }

@@ -1,10 +1,10 @@
 package com.mpoznyak.casemanager.adapter;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mpoznyak.casemanager.R;
@@ -28,7 +28,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder
     }
 
     public class CaseViewHolder extends RecyclerView.ViewHolder {
-        private CardView mCardView;
+        public RelativeLayout viewForeground, viewBackground;
         private TextView mName, mDate;
 
         public CaseViewHolder(View view) {
@@ -40,7 +40,8 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder
 
                 }
             });
-            mCardView = (CardView) view.findViewById(R.id.mainCasesCard);
+            viewForeground = view.findViewById(R.id.caseViewForeground);
+            viewBackground = view.findViewById(R.id.caseViewBackground);
             mName = (TextView) view.findViewById(R.id.mainCaseName);
             mDate = (TextView) view.findViewById(R.id.mainCaseDate);
         }
@@ -67,5 +68,14 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder
         return mCases.size();
     }
 
+    public void removeItem(int position) {
+        mCases.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Case item, int position) {
+        mCases.add(position, item);
+        notifyItemInserted(position);
+    }
 
 }
