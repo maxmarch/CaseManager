@@ -43,15 +43,8 @@ public class MainInteractor {
         return mGetCases.execute(mCaseRepository, new CasesByTypeSpecification(getLastOpenedType().getName()));
     }
 
-    private Type getLastOpenedType() {
+    public Type getLastOpenedType() {
         return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification()).get(0);
-    }
-
-    public String getNameLastOpenedType() {
-
-        return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification())
-                .get(0)
-                .getName();
     }
 
     public void addCase() {

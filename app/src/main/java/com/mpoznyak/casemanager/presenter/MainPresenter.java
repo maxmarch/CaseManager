@@ -34,8 +34,8 @@ public class MainPresenter {
         return mMainInteractor.getCasesByLastOpenedType();
     }
 
-    public String loadNameForLastOpenedType() {
-        return mMainInteractor.getNameLastOpenedType();
+    public Type loadLastOpenedType() {
+        return mMainInteractor.getLastOpenedType();
     }
 
     public List<Case> loadCasesBySelectedType(String type) {

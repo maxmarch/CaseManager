@@ -49,4 +49,12 @@ public class Type {
     public void setName(String name) {
         mName = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof Type) {
+            return this.mName.equals(((Type) o).mName);
+        }
+        return false;
+    }
 }

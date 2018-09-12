@@ -35,6 +35,7 @@ import com.mpoznyak.casemanager.presenter.MainPresenter;
 import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.model.Type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     private String currentTypeName;
     private List<Case> mCases;
     private List<Type> mTypes;
+    private Type mCurrentType;
+    private int mCurrentTypePosition;
     private ItemTouchHelper.SimpleCallback mItemTouchHelperCallback;
     int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -85,14 +88,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 @Override
                 public void onItemClick(View view) {
                     int position = mTypesRecyclerView.getChildLayoutPosition(view);
-                    Type type = mTypes.get(position);
-                    type.setLastOpened(true);
-                    mMainPresenter.updateType(type);
-                    List<Case> list = mMainPresenter.loadCasesBySelectedType(type.getName());
+                    mCurrentTypePosition = position;
+                    mCurrentType = mTypes.get(position);
+                    mCurrentType.setLastOpened(true);
+                    mMainPresenter.updateType(mCurrentType);
+                    List<Case> list = mMainPresenter.loadCasesBySelectedType(mCurrentType.getName());
                     mCases.clear();
                     mCases.addAll(list);
                     mCaseAdapter.notifyDataSetChanged();
-                    currentTypeName = type.getName();
+                    currentTypeName = mCurrentType.getName();
                     mNameToolbarTv.setText(currentTypeName);
                     mDrawerLayout.closeDrawers();
                 }
@@ -167,7 +171,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         if (!mMainPresenter.typeDataisEmpty()) {
             mTypeAdapter.notifyDataSetChanged();
             mCaseAdapter.notifyDataSetChanged();
-            currentTypeName = mMainPresenter.loadNameForLastOpenedType();
+            mCurrentType = mMainPresenter.loadLastOpenedType();
+            for (int i = 0; i < mTypes.size(); i++) {
+                if (mTypes.get(i).equals(mCurrentType))
+                    mCurrentTypePosition = i;
+            }
+            currentTypeName = mCurrentType.getName();
             mNameToolbarTv.setText(currentTypeName);
         }
     }
@@ -177,7 +186,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
+                mTypes.clear();
+                mTypes.addAll(mMainPresenter.loadTypes());
+                mTypeAdapter.notifyDataSetChanged();
                 return true;
+            case R.id.delete_type:
+                List<Type> tempTypes = new ArrayList<>();
+                mMainPresenter.deleteType(mCurrentType);
+                mTypes.remove(mCurrentTypePosition);
+                tempTypes.addAll(mTypes);
+                for (Type type : tempTypes) {
+                    if (type != null) {
+                        mCurrentType = type;
+                        mCurrentType.setLastOpened(true);
+                        mMainPresenter.updateType(mCurrentType);
+                        mTypes.clear();
+                        mTypes.addAll(tempTypes);
+                        onResume();
+                        break;
+                    }
+                }
+
+
         }
         return super.onOptionsItemSelected(item);
     }
