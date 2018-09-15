@@ -6,32 +6,35 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.DocumentAdapter;
+import com.mpoznyak.casemanager.presenter.CasePresenter;
+import com.mpoznyak.casemanager.util.ClickListenerOption;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Set;
 
-public class DocumentsFragment extends Fragment implements Observer {
+public class DocumentsFragment extends Fragment {
 
     private static final String TAG = DocumentsFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private DocumentAdapter mDocumentAdapter;
     private List<DocumentWrapper> mDocumentWrappers;
     private static final String KEY = "entries";
+    private CasePresenter mCasePresenter;
 
     public static DocumentsFragment newInstance(ArrayList<DocumentWrapper> entries) {
         DocumentsFragment fragment = new DocumentsFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(KEY, entries);
         fragment.setArguments(args);
-        Log.d(TAG, "newInstance method calles");
+        Log.d(TAG, "newInstance");
         return fragment;
     }
 
@@ -46,12 +49,7 @@ public class DocumentsFragment extends Fragment implements Observer {
         View view = inflater.inflate(R.layout.fragment_document_gallery, parent, false);
         mDocumentWrappers = getArguments().getParcelableArrayList(KEY);
         mRecyclerView = view.findViewById(R.id.documents_recycler_view);
-        mDocumentAdapter = new DocumentAdapter(mDocumentWrappers, new DocumentAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v) {
-
-            }
-        });
+        mDocumentAdapter = new DocumentAdapter(mDocumentWrappers, getActivity());
         Log.d(TAG, "DocumentAdapter recieves the next data: " + mDocumentWrappers);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -70,8 +68,24 @@ public class DocumentsFragment extends Fragment implements Observer {
         Log.d(TAG, "onResume called");
     }
 
-    @Override
-    public void update(Observable o, Object args) {
+    public void setClickListenerOption(ClickListenerOption option, Set<DocumentWrapper> docs) {
+        mDocumentAdapter.setClickListenerOption(option, docs);
 
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle().equals("Delete")) {
+            mCasePresenter.deleteEntry(mDocumentWrappers.get(mDocumentAdapter.getItemPosition()));
+            mDocumentWrappers.remove(mDocumentAdapter.getItemPosition());
+            mDocumentAdapter.notifyDataSetChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public void setCasePresenter(CasePresenter presenter) {
+        mCasePresenter = presenter;
     }
 }

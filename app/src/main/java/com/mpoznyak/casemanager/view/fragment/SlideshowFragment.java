@@ -39,11 +39,23 @@ public class SlideshowFragment extends DialogFragment {
     private ImageButton mSendButton;
     private int mSelectedPositionUnsortedList;
     private int mSelectedPositionPhotoList;
+    private boolean mVisibleSendButton;
     private MediaManagerInteractor mMediaManagerInteractor;
 
     public void setInteractor(MediaManagerInteractor interactor) {
         mMediaManagerInteractor = interactor;
     }
+
+    public SlideshowFragment() {
+
+    }
+
+    public static SlideshowFragment newInstance(boolean isVisibleSendBtn) {
+        SlideshowFragment slideshowFragment = new SlideshowFragment();
+        slideshowFragment.mVisibleSendButton = isVisibleSendBtn;
+        return slideshowFragment;
+    }
+
 
     public void setPhotos(List<File> photos) {
         mUnsortedFileList = photos;
@@ -78,6 +90,9 @@ public class SlideshowFragment extends DialogFragment {
         lblDate = v.findViewById(R.id.sliderDate);
         mToolbar = v.findViewById(R.id.toolbarPhotoSlider);
         mSendButton = v.findViewById(R.id.sendBtnPreviewPhoto);
+        if (mVisibleSendButton == true) {
+            mSendButton.setVisibility(View.VISIBLE);
+        }
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
@@ -93,6 +108,7 @@ public class SlideshowFragment extends DialogFragment {
 
         return v;
     }
+
 
     private void setCurrentItem(int position) {
         viewPager.setCurrentItem(position, false);

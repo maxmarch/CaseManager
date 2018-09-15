@@ -5,24 +5,27 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.PhotoAdapter;
+import com.mpoznyak.casemanager.presenter.CasePresenter;
+import com.mpoznyak.casemanager.util.ClickListenerOption;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Set;
 
-public class PhotosFragment extends Fragment implements Observer {
+public class PhotosFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private PhotoAdapter mPhotosAdapter;
     private List<PhotoWrapper> mPhotoWrappers;
     private static final String KEY = "photos";
+    private CasePresenter mCasePresenter;
 
     public static PhotosFragment newInstance(ArrayList<PhotoWrapper> photoWrappers) {
         PhotosFragment fragment = new PhotosFragment();
@@ -51,14 +54,29 @@ public class PhotosFragment extends Fragment implements Observer {
 
             }
         }, getActivity());
+
         mRecyclerView.setAdapter(mPhotosAdapter);
         return view;
 
     }
 
+
+    public void setClickListenerOption(ClickListenerOption option, Set<PhotoWrapper> photos) {
+        mPhotosAdapter.setClickListenerOption(option, photos);
+    }
+
     @Override
-    public void update(Observable o, Object arg) {
-        View root = getView();
-        mPhotosAdapter.notifyDataSetChanged();
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle().equals("Delete")) {
+            mCasePresenter.deleteEntry(mPhotoWrappers.get(mPhotosAdapter.getItemPosition()));
+            mPhotoWrappers.remove(mPhotosAdapter.getItemPosition());
+            mPhotosAdapter.notifyDataSetChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public void setCasePresenter(CasePresenter presenter) {
+        mCasePresenter = presenter;
     }
 }

@@ -4,15 +4,17 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.mpoznyak.casemanager.R;
+import com.mpoznyak.casemanager.presenter.CasePresenter;
+import com.mpoznyak.casemanager.util.ClickListenerOption;
 import com.mpoznyak.casemanager.view.fragment.DocumentsFragment;
 import com.mpoznyak.casemanager.view.fragment.PhotosFragment;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -22,23 +24,40 @@ public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<DocumentWrapper> mDocumentWrappers;
     private ArrayList<PhotoWrapper> mPhotoWrappers;
     private Context mContext;
+    public DocumentsFragment fragment0;
+    private PhotosFragment fragment1;
+    private CasePresenter mCasePresenter;
+
 
     public CaseViewPagerAdapter(Context context, FragmentManager fm, ArrayList<DocumentWrapper> documentWrappers, ArrayList<PhotoWrapper> photoWrappers) {
         super(fm);
         mDocumentWrappers = documentWrappers;
         mPhotoWrappers = photoWrappers;
         mContext = context;
+        fragment0 = DocumentsFragment.newInstance(mDocumentWrappers);
+        fragment1 = PhotosFragment.newInstance(mPhotoWrappers);
+
+
     }
+
+    public void setSingleClickOption(ClickListenerOption option) {
+        fragment0.setClickListenerOption(option, null);
+        fragment1.setClickListenerOption(option, null);
+    }
+
+    public void setMultiClickOption(ClickListenerOption option, Set<DocumentWrapper> docs
+            , Set<PhotoWrapper> photos) {
+        fragment0.setClickListenerOption(option, docs);
+        fragment1.setClickListenerOption(option, photos);
+    }
+
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                Fragment fragment0 = DocumentsFragment.newInstance(mDocumentWrappers);
-                Log.d(TAG, "getItem calls " + fragment0);
                 return fragment0;
             case 1:
-                Fragment fragment1 = PhotosFragment.newInstance(mPhotoWrappers);
                 return fragment1;
             default:
                 return null;
@@ -66,5 +85,11 @@ public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
             default:
                 return null;
         }
+    }
+
+    public void setCasePresenter(CasePresenter casePresenter) {
+        mCasePresenter = casePresenter;
+        fragment0.setCasePresenter(mCasePresenter);
+        fragment1.setCasePresenter(mCasePresenter);
     }
 }

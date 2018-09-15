@@ -66,7 +66,7 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
 
         public void onSingleSelect(File file, int position) {
             if (isExtensionAppropriate(file.getPath())) {
-                SlideshowFragment fragment = new SlideshowFragment();
+                SlideshowFragment fragment = SlideshowFragment.newInstance(true);
                 fragment.setSelectedPositionUnsortedList(position);
                 fragment.setPhotos(mFiles);
                 fragment.setInteractor(mInteractor);

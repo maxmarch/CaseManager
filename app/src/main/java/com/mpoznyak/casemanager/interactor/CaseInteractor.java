@@ -75,5 +75,9 @@ public class CaseInteractor {
         return docs;
     }
 
+    public void deleteEntry(Entry entry) {
+        mEntryRepository.remove(entry);
+    }
+
 
 }

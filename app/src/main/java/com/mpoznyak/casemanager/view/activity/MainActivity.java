@@ -41,6 +41,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
 
+    private static final int REQUEST_CODE = 1234;
     private RecyclerView mCasesRecyclerView, mTypesRecyclerView;
     private CaseAdapter mCaseAdapter;
     private TypeAdapter mTypeAdapter;
@@ -68,12 +69,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
             startActivity(welcomeIntent);
         } else {
             setContentView(R.layout.activity_main);
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_CALENDAR)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-            }
+
+
+            verifyPermissions();
 
             mAddTypeButton = findViewById(R.id.main_add_type);
             mAddTypeButton.setOnClickListener(v -> {
@@ -252,5 +250,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
             snackbar.show();
         }
 
+    }
+
+    private void verifyPermissions() {
+        String[] permissions = {
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA};
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                permissions[0]) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                permissions[1]) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    permissions,
+                    REQUEST_CODE
+            );
+        }
     }
 }

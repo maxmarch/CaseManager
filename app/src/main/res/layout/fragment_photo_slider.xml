@@ -26,6 +26,7 @@
                 android:background="#000000"
                 android:src="@drawable/ic_baseline_send_24px"
                 android:tint="@color/colorSendDrawable"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
