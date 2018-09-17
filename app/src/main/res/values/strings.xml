@@ -2,7 +2,7 @@
     <string name="welcome_message">Welcome to CaseManager. Here your documentWrappers and photoWrappers
         can be grouped in cases to ease the access to them, to upload
         them to cloud storages in a convinient way or to send through e-mail.</string>
-    <string name="new_type">New Type</string>
+    <string name="new_type">New group</string>
     <string name="new_case">New Case</string>
     <string name="start">Start</string>
     <string name="app_name">CaseManager</string>
@@ -23,6 +23,9 @@
     <string name="send_multiple_files">Multiple files</string>
     <string name="send_as_zip_package">As .zip package</string>
     <string name="share_menu_title">Send...</string>
+    <string name="edit_type">Edit type</string>
+    <string name="no_type">You have not any group of documents</string>
+    <string name="please_add">Create a new group for work</string>
 
 
 </resources>

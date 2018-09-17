@@ -34,7 +34,7 @@
                 android:padding="20dp"
                 android:text="@string/welcome_message"
                 android:textAlignment="center"
-                android:textColor="@color/colorTextDrawer"
+                android:textColor="@color/colorTextWhite"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:background="@drawable/welcome_start_button_states"
             android:fontFamily="@font/roboto_condensed_bold"
             android:text="@string/start"
-            android:textColor="@color/colorTextDrawer"
+            android:textColor="@color/colorTextWhite"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

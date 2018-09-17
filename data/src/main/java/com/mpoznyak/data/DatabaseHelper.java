@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_TYPE + " TEXT NOT NULL, "
                 + COLUMN_CREATION_DATE + " TEXT, "
                 + "FOREIGN KEY (" + COLUMN_TYPE + ")" + " REFERENCES " + TABLE_TYPES + "(" + COLUMN_NAME + ") ON DELETE CASCADE "
-                + ");";
+                + "ON UPDATE CASCADE);";
 
         public static final String CREATE_TABLE_TODOS = "CREATE TABLE " + TABLE_TASKS + " ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

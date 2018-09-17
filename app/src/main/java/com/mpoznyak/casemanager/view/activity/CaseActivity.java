@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -95,7 +96,11 @@ public class CaseActivity extends AppCompatActivity {
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mShareBottomSheetDialog.show();
+                if (mDocumentWrappers.size() == 0 && mPhotoWrappers.size() == 0) {
+                    Toast.makeText(CaseActivity.this, "There is no data for share!", Toast.LENGTH_SHORT).show();
+                } else {
+                    mShareBottomSheetDialog.show();
+                }
             }
         });
         mOkButton.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +157,8 @@ public class CaseActivity extends AppCompatActivity {
         mTakePhotoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
                 mViewPagerPosition = 1;
                 mViewPager.setCurrentItem(mViewPagerPosition);
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -185,8 +192,10 @@ public class CaseActivity extends AppCompatActivity {
         mShareOneFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mPagerAdapter.setSingleClickOption(ClickListenerOption.SHARE_ONE_ITEM);
                 mShareBottomSheetDialog.cancel();
+
             }
         });
         mShareMultipleFilesBtn = mShareMenuDialog.findViewById(R.id.shareMultipleFiles);
@@ -202,6 +211,7 @@ public class CaseActivity extends AppCompatActivity {
                 mShareButton.setVisibility(View.GONE);
                 mAddFileButton.setVisibility(View.GONE);
                 mShareBottomSheetDialog.cancel();
+
             }
         });
         mShareZipFile = mShareMenuDialog.findViewById(R.id.shareZipFile);
@@ -218,6 +228,17 @@ public class CaseActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void checkFilesExistence() {
+        ArrayList<DocumentWrapper> docs = mCasePresenter.loadDocumentsFromDb();
+        ArrayList<PhotoWrapper> photos = mCasePresenter.loadPhotosFromDb();
+        for (PhotoWrapper photo : photos) {
+            if (!photo.getPath().exists()) {
+
+            }
+        }
+
     }
 
     @Override
@@ -246,8 +267,6 @@ public class CaseActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 
 }

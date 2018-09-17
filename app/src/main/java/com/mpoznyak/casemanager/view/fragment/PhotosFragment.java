@@ -66,6 +66,12 @@ public class PhotosFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        registerForContextMenu(mRecyclerView);
+    }
+
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getTitle().equals("Delete")) {
             mCasePresenter.deleteEntry(mPhotoWrappers.get(mPhotosAdapter.getItemPosition()));

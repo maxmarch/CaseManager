@@ -20,4 +20,8 @@ public class NewTypeInteractor {
     public void addType(Type type) {
         mAddType.execute(type, mTypeRepository);
     }
+
+    public void update(Type type) {
+        mTypeRepository.update(type);
+    }
 }

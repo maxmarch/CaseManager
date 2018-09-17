@@ -45,6 +45,7 @@ public class MainInteractor {
 
     public Type getLastOpenedType() {
         return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification()).get(0);
+
     }
 
     public void addCase() {

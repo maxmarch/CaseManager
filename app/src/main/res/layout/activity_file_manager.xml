@@ -22,7 +22,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/colorToolbar"
                 android:src="@drawable/ic_baseline_arrow_back_24px"
-                android:tint="@color/colorTextDrawer"
+                android:tint="@color/colorTextWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textSize="18sp"
-                android:textColor="@color/colorTextDrawer"
+                android:textColor="@color/colorTextWhite"
                 android:gravity="center_horizontal|center_vertical" />
 
             <ImageButton
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_baseline_check_box_24px"
-                android:tint="@color/colorTextDrawer"
+                android:tint="@color/colorTextWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

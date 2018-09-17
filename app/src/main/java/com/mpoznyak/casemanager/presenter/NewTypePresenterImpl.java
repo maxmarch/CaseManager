@@ -26,4 +26,8 @@ public class NewTypePresenterImpl implements NewTypePresenter {
         mType.setLastOpened(true);
         mNewTypeInteractor.addType(mType);
     }
+
+    public void updateType(Type type) {
+        mNewTypeInteractor.update(type);
+    }
 }

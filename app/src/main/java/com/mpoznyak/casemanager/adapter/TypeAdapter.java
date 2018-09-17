@@ -57,7 +57,11 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
     @Override
     public void onBindViewHolder(final TypeViewHolder vh, int position) {
         Type type = mTypes.get(position);
-        vh.mName.setText(type.getName());
+        String typeName = type.getName();
+        if (typeName.length() > 16) {
+            typeName = typeName.substring(0, 16) + "...";
+        }
+        vh.mName.setText(typeName);
         vh.mImageView.setColorFilter(Color.parseColor(type.getColor()));
 
     }

@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.adapter.CaseAdapter;
@@ -38,15 +41,18 @@ import com.mpoznyak.domain.model.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class MainActivity extends AppCompatActivity
+        implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
 
     private static final int REQUEST_CODE = 1234;
+    private ConstraintLayout mNoTypePosterLayout;
     private RecyclerView mCasesRecyclerView, mTypesRecyclerView;
     private CaseAdapter mCaseAdapter;
     private TypeAdapter mTypeAdapter;
     private TextView mNameToolbarTv;
     private Toolbar mToolbar;
+    private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBar actionBar;
     private Button mAddTypeButton;
@@ -58,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     private Type mCurrentType;
     private int mCurrentTypePosition;
     private ItemTouchHelper.SimpleCallback mItemTouchHelperCallback;
-    int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +78,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
 
             verifyPermissions();
 
-            mAddTypeButton = findViewById(R.id.main_add_type);
+            mNavigationView = findViewById(R.id.navigation);
+            View header = mNavigationView.getHeaderView(0);
+            mAddTypeButton = header.findViewById(R.id.main_add_type);
             mAddTypeButton.setOnClickListener(v -> {
                 Intent intent = new Intent(this, NewTypeActivity.class);
                 startActivity(intent);
             });
 
+            mNoTypePosterLayout = findViewById(R.id.noTypesPosterLayout);
             mCasesRecyclerView = findViewById(R.id.main_cases_recyclerview);
             mTypesRecyclerView = findViewById(R.id.main_types_recyclerview);
             mTypes = mMainPresenter.loadTypes();
@@ -95,11 +103,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                     mCases.addAll(list);
                     mCaseAdapter.notifyDataSetChanged();
                     currentTypeName = mCurrentType.getName();
+                    if (currentTypeName.length() > 16) {
+                        currentTypeName = currentTypeName.substring(0, 16) + "...";
+                    }
                     mNameToolbarTv.setText(currentTypeName);
                     mDrawerLayout.closeDrawers();
                 }
             });
-            mTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            mTypesRecyclerView.setLayoutManager(linearLayoutManager);
+            DividerItemDecoration divider = new DividerItemDecoration(mTypesRecyclerView.getContext(),
+                    linearLayoutManager.getOrientation());
+            mTypesRecyclerView.addItemDecoration(divider);
             mCases = mMainPresenter.loadCasesByLastOpenedType();
             mCaseAdapter = new CaseAdapter(mCases,
                     new CaseAdapter.OnItemClickListener() {
@@ -175,6 +190,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                     mCurrentTypePosition = i;
             }
             currentTypeName = mCurrentType.getName();
+            if (currentTypeName.length() > 16) {
+                currentTypeName = currentTypeName.substring(0, 16) + "...";
+            }
             mNameToolbarTv.setText(currentTypeName);
         }
     }
@@ -189,9 +207,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 mTypeAdapter.notifyDataSetChanged();
                 return true;
             case R.id.delete_type:
+                if (mMainPresenter.typeDataisEmpty()) {
+                    Toast.makeText(this, "You have not any type to delete"
+                            , Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 List<Type> tempTypes = new ArrayList<>();
                 mMainPresenter.deleteType(mCurrentType);
-                mTypes.remove(mCurrentTypePosition);
+                if (mTypes.size() != 0) {
+                    mTypes.remove(mCurrentTypePosition);
+                } else {
+                    Toast.makeText(this, "No types defined", Toast.LENGTH_SHORT).show();
+                }
                 tempTypes.addAll(mTypes);
                 for (Type type : tempTypes) {
                     if (type != null) {
@@ -200,10 +227,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                         mMainPresenter.updateType(mCurrentType);
                         mTypes.clear();
                         mTypes.addAll(tempTypes);
-                        onResume();
                         break;
                     }
                 }
+                if (mMainPresenter.typeDataisEmpty()) {
+                    mNameToolbarTv.setText(null);
+                    mNewCaseBtn.setVisibility(View.INVISIBLE);
+                    mNoTypePosterLayout.setVisibility(View.VISIBLE);
+                }
+                onResume();
+                break;
+            case R.id.edit_type:
+                if (mMainPresenter.typeDataisEmpty()) {
+                    Toast.makeText(this, "You have not any type to edit"
+                            , Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Type type = mTypes.get(mCurrentTypePosition);
+                Intent editIntent = new Intent(this, EditTypeActivity.class);
+                editIntent.putExtra("typeId", type.getId());
+                startActivity(editIntent);
+                break;
+
 
 
         }
@@ -214,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
-        //TODO add current type listener, than add switch to another type after removing to -1 or +1 position
         return true;
     }
 

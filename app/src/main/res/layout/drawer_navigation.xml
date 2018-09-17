@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:background="@color/colorNavigationBar">
+
+    <ImageView
+        android:id="@+id/folders_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_folders_types"
+        app:layout_constraintBottom_toTopOf="@+id/main_add_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textGroups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:text="Groups"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_add_type"
+        app:layout_constraintStart_toEndOf="@+id/folders_logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_marginStart="8dp"
+        android:id="@+id/main_add_type"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:background="@color/colorNavigationBar"
+        android:clickable="true"
+        android:layout_marginEnd="8dp"
+        android:drawableEnd="@drawable/ic_baseline_add_30pxaccent"
+        android:focusable="true"
+        android:fontFamily="@font/roboto"
+        android:foregroundGravity="center_vertical"
+        android:gravity="start|center_vertical"
+        android:paddingBottom="5dp"
+        android:text="@string/new_type"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

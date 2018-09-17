@@ -29,6 +29,7 @@
         <activity android:name=".view.activity.CaseActivity" />
         <activity android:name=".view.activity.FileManagerActivity" />
         <activity android:name=".view.activity.MediaManagerActivity" />
+        <activity android:name=".view.activity.EditTypeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

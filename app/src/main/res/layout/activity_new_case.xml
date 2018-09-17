@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_arrow_back_24px"
-                    android:tint="@color/colorTextDrawer" />
+                    android:tint="@color/colorTextWhite" />
 
                 <TextView
                     app:layout_constraintLeft_toRightOf="@id/backArrow"
@@ -38,7 +38,7 @@
                     android:fontFamily="@font/roboto"
                     android:textSize="18sp"
                     android:text="@string/new_case"
-                    android:textColor="@color/colorTextDrawer"
+                    android:textColor="@color/colorTextWhite"
                     android:gravity="center_horizontal|center_vertical" />
             </android.support.constraint.ConstraintLayout>
 
@@ -50,7 +50,7 @@
                 android:id="@+id/btnAddCase"
                 android:layout_gravity="end"
                 android:src="@drawable/ic_baseline_done_24px"
-                android:tint="@color/colorTextDrawer"
+                android:tint="@color/colorTextWhite"
                 android:background="@color/colorToolbar"
                 android:layout_marginEnd="15dp" />
         </android.support.v7.widget.Toolbar>

@@ -31,12 +31,11 @@
                         android:id="@+id/mainNameToolbarTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:fontFamily="@font/roboto"
                         android:gravity="center_horizontal"
-                        android:maxLength="15"
-                        android:ellipsize="end"
                         android:singleLine="true"
-                        android:textColor="@color/colorTextDrawer"
+                        android:textColor="@color/colorTextWhite"
                         android:textSize="22sp" />
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -48,6 +47,59 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:scrollbars="vertical" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/noTypesPosterLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/empty_types_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_empty_folder"
+                app:layout_constraintBottom_toTopOf="@id/no_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/no_type"
+                android:textColor="@color/colorNoTypesText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/please_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/empty_types_image" />
+
+            <TextView
+                android:id="@+id/please_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/please_add"
+                android:textColor="@color/colorNoTypesText"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/no_type" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabNewCase"
@@ -64,61 +116,31 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
-        android:layout_width="wrap_content"
+        android:background="#FFF"
+
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorNavigationBar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_navigation">
 
         <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="120dp">
-
-            <RelativeLayout
+            android:scrollbars="vertical"
+            android:layout_marginTop="150dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/main_add_type"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@color/colorNavigationBar"
-                    android:clickable="true"
-                    android:drawableEnd="@drawable/ic_baseline_add_30pxaccent"
-                    android:focusable="true"
-                    android:fontFamily="@font/roboto"
-                    android:foregroundGravity="center_vertical"
-                    android:gravity="start|center_vertical"
-                    android:paddingBottom="5dp"
-                    android:text="@string/new_type"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="25sp" />
-
+            android:layout_height="wrap_content">
                 <LinearLayout
+                    android:background="#FFF"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="50dp"
-                    android:orientation="vertical">
-
+                    android:layout_height="wrap_content">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/main_types_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="vertical">
-
-                    </android.support.v7.widget.RecyclerView>
+                        android:scrollbars="vertical" />
                 </LinearLayout>
 
-            </RelativeLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.NavigationView>

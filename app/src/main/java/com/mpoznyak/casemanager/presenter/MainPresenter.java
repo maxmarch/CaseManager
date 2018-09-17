@@ -1,8 +1,11 @@
 package com.mpoznyak.casemanager.presenter;
 
-import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.mpoznyak.casemanager.interactor.MainInteractor;
+import com.mpoznyak.casemanager.view.activity.NewTypeActivity;
 import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.model.Type;
@@ -11,13 +14,14 @@ import java.util.List;
 
 public class MainPresenter {
 
+    private static final String TAG = MainPresenter.class.getSimpleName();
     private MainInteractor mMainInteractor;
-    private Context mContext;
+    private AppCompatActivity mActivity;
     private DatabaseHelper mDatabaseHelper;
 
-    public MainPresenter(Context context) {
-        mContext = context;
-        mDatabaseHelper = DatabaseHelper.getInstance(mContext);
+    public MainPresenter(AppCompatActivity appCompatActivity) {
+        mActivity = appCompatActivity;
+        mDatabaseHelper = DatabaseHelper.getInstance(mActivity);
         mMainInteractor = new MainInteractor(mDatabaseHelper);
     }
 
@@ -35,7 +39,17 @@ public class MainPresenter {
     }
 
     public Type loadLastOpenedType() {
-        return mMainInteractor.getLastOpenedType();
+        try {
+            return mMainInteractor.getLastOpenedType();
+
+        } catch (IndexOutOfBoundsException e) {
+            Log.e(TAG, e.getMessage());
+            if (e.getMessage().contains("Size: 0")) {
+                Intent intent = new Intent(mActivity, NewTypeActivity.class);
+                mActivity.startActivity(intent);
+            }
+        }
+        return null;
     }
 
     public List<Case> loadCasesBySelectedType(String type) {

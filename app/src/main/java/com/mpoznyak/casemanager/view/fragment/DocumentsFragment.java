@@ -65,6 +65,9 @@ public class DocumentsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mDocumentAdapter.notifyDataSetChanged();
+
+        registerForContextMenu(mRecyclerView);
+
         Log.d(TAG, "onResume called");
     }
 
@@ -73,6 +76,7 @@ public class DocumentsFragment extends Fragment {
 
 
     }
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {

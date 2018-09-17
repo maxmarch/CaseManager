@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorToolbar"
                         android:src="@drawable/ic_baseline_arrow_back_24px"
-                        android:tint="@color/colorTextDrawer" />
+                        android:tint="@color/colorTextWhite" />
 
                     <FrameLayout
                         android:layout_width="30dp"
@@ -51,7 +51,7 @@
                             android:background="@color/colorToolbar"
                             android:contentDescription="@string/new_type"
                             android:src="@drawable/ic_baseline_check_box_24px"
-                            android:tint="@color/colorTextDrawer" />
+                            android:tint="@color/colorTextWhite" />
 
                         <ImageButton
                             android:id="@+id/shareButton"
@@ -60,7 +60,7 @@
                             android:background="@color/colorToolbar"
                             android:contentDescription="@string/new_type"
                             android:src="@drawable/ic_baseline_share_24px"
-                            android:tint="@color/colorTextDrawer" />
+                            android:tint="@color/colorTextWhite" />
                     </FrameLayout>
 
                 </android.support.v7.widget.Toolbar>

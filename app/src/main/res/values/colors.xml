@@ -10,7 +10,7 @@
     <color name="colorBtnRippleAddCase">#F9BA4C</color>
     <color name="colorNavigationBar">#304049</color>
     <color name="colorTextInTypeList">#FFFFFF</color>
-    <color name="colorTextDrawer">#FFFFFF</color>
+    <color name="colorTextWhite">#FFFFFF</color>
     <color name="colorCaseToolbar">#344955</color>
     <color name="colorTextOnDarkBackground">#FFFFFF</color>
     <color name="colorViewPager">#FFFFFF</color>
@@ -18,5 +18,7 @@
     <color name="colorTabLayoutCaseActivity">#344955</color>
     <color name="colorDocumentItem">#FFFFFF</color>
     <color name="colorSendDrawable">#ffffff</color>
+    <color name="colorNoTypesText">#A0A3A4</color>
+    <color name="colorTextBlack">#000000</color>
 
 </resources>

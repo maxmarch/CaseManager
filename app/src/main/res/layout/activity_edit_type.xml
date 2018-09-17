@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/welcome_fragment_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:clickable="true">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/typeadding_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/add_type_toolbar_welcome"
+            android:id="@+id/edit_type_toolbar_welcome"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorToolbar">
@@ -23,73 +21,75 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:background="@color/colorToolbar"
-                    android:id="@+id/backArrow"
+                    android:id="@+id/backArrowEditType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorToolbar"
                     android:src="@drawable/ic_baseline_arrow_back_24px"
                     android:tint="@color/colorTextWhite" />
 
                 <TextView
-                    app:layout_constraintLeft_toRightOf="@id/backArrow"
-                    android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="18sp"
-                    android:text="@string/new_type"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/edit_type"
                     android:textColor="@color/colorTextWhite"
-                    android:gravity="center_horizontal|center_vertical" />
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/backArrowEditType"
+                    app:layout_constraintStart_toEndOf="@+id/backArrowEditType" />
             </android.support.constraint.ConstraintLayout>
 
 
             <ImageButton
-                android:contentDescription="@string/new_type"
+                android:id="@+id/btnAcceptEditType"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/btn_add_type"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_baseline_done_24px"
-                android:tint="@color/colorTextWhite"
+                android:layout_marginEnd="15dp"
                 android:background="@color/colorToolbar"
-                android:layout_marginEnd="15dp" />
+                android:contentDescription="@string/new_type"
+                android:src="@drawable/ic_baseline_done_24px"
+                android:tint="@color/colorTextWhite" />
         </android.support.v7.widget.Toolbar>
 
         <RelativeLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_type_toolbar_welcome"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_type_toolbar_welcome">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
                 android:text="@string/welome_add_type_nameTv"
-                android:textColor="@color/colorAccent"
-                android:layout_marginStart="2dp" />
+                android:textColor="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/et_add_type"
-                android:maxLength="40"
-                android:maxLines="1"
+                android:id="@+id/etEditType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/welcome_add_type_hintEt"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="12dp"
+                android:maxLength="40"
+                android:maxLines="1">
 
                 <requestFocus />
             </EditText>
 
             <Spinner
+                android:id="@+id/colorSpinnerEditType"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_add_type"
-                android:layout_marginTop="15dp"
+                android:layout_below="@+id/etEditType"
                 android:layout_marginStart="2dp"
+                android:layout_marginTop="15dp"
                 android:dropDownSelector="@color/colorToolbar" />
         </RelativeLayout>
     </android.support.constraint.ConstraintLayout>
