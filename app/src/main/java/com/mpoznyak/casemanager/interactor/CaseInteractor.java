@@ -1,10 +1,13 @@
 package com.mpoznyak.casemanager.interactor;
 
 import com.mpoznyak.data.DatabaseHelper;
+import com.mpoznyak.data.repository.CaseRepository;
 import com.mpoznyak.data.repository.EntryRepository;
+import com.mpoznyak.data.specification.cases.CaseByIdSpecification;
 import com.mpoznyak.data.specification.entries.EntriesByCaseIdSpecification;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
+import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.model.Entry;
 
 import java.io.File;
@@ -15,9 +18,11 @@ public class CaseInteractor {
 
     private EntryRepository mEntryRepository;
     private DatabaseHelper mDatabaseHelper;
+    private CaseRepository mCaseRepository;
 
     public CaseInteractor(DatabaseHelper db) {
         mDatabaseHelper = db;
+        mCaseRepository = new CaseRepository(mDatabaseHelper);
         mEntryRepository = new EntryRepository(mDatabaseHelper);
     }
 
@@ -31,6 +36,11 @@ public class CaseInteractor {
     public ArrayList<PhotoWrapper> getPhotosByCaseId(int caseId) {
         List<Entry> entries = mEntryRepository.query(new EntriesByCaseIdSpecification(caseId));
         return getPhotosFromQuery(entries);
+    }
+
+    public Case getCase(int caseId) {
+        List<Case> cases = mCaseRepository.query(new CaseByIdSpecification(caseId));
+        return cases.get(0);
     }
 
     private ArrayList<PhotoWrapper> getPhotosFromQuery(List<Entry> entries) {

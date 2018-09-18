@@ -6,6 +6,7 @@ import com.mpoznyak.casemanager.interactor.CaseInteractor;
 import com.mpoznyak.data.DatabaseHelper;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
+import com.mpoznyak.domain.model.Case;
 import com.mpoznyak.domain.model.Entry;
 
 import java.io.File;
@@ -26,6 +27,11 @@ public class CasePresenter {
         mDatabaseHelper = DatabaseHelper.getInstance(activity);
         mCaseInteractor = new CaseInteractor(mDatabaseHelper);
 
+    }
+
+    public Case getCase(int caseId) {
+        Case aCase = new Case();
+        return mCaseInteractor.getCase(caseId);
     }
 
     public ArrayList<DocumentWrapper> loadDocumentsFromDb() {

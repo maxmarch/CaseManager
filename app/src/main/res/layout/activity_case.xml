@@ -66,11 +66,9 @@
                 </android.support.v7.widget.Toolbar>
 
                 <TextView
-
                     android:id="@+id/caseName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MY NEW NAME CONTRACT"
                     android:textColor="@color/colorTextOnDarkBackground"
                     app:layout_constraintTop_toBottomOf="@id/caseToolbar" />
             </android.support.constraint.ConstraintLayout>
@@ -91,7 +89,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.widget.NestedScrollView>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
@@ -100,7 +98,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorViewPager"
         app:layout_anchor="@id/appBarCaseActivity"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/openFileManager"

@@ -21,7 +21,7 @@
     <string name="edit">Edit</string>
     <string name="send_one_file">One file</string>
     <string name="send_multiple_files">Multiple files</string>
-    <string name="send_as_zip_package">As .zip package</string>
+    <string name="send_all_files">All files</string>
     <string name="share_menu_title">Send...</string>
     <string name="edit_type">Edit type</string>
     <string name="no_type">You have not any group of documents</string>

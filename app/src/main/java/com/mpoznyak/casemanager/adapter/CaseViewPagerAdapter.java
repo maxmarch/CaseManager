@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.presenter.CasePresenter;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
+public class CaseViewPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
 
     private static final String TAG = CaseViewPagerAdapter.class.getSimpleName();
     public static final int NUM = 2;
@@ -91,5 +92,26 @@ public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
         mCasePresenter = casePresenter;
         fragment0.setCasePresenter(mCasePresenter);
         fragment1.setCasePresenter(mCasePresenter);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (position == 0) {
+            fragment1.unregisterForContextMenu();
+            fragment0.registerForContextMenu();
+        } else {
+            fragment0.unregisterForContextMenu();
+            fragment1.registerForContextMenu();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mpoznyak.casemanager.R;
@@ -54,7 +55,8 @@ public class CaseActivity extends AppCompatActivity {
     private LinearLayout mAddDocumentLayout;
     private LinearLayout mShareOneFile;
     private LinearLayout mShareMultipleFilesBtn;
-    private LinearLayout mShareZipFile;
+    private TextView mCaseName;
+    private LinearLayout mShareAllFiles;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private BottomSheetDialog mNewFilesBottomSheetDialog;
     private BottomSheetDialog mShareBottomSheetDialog;
@@ -83,6 +85,7 @@ public class CaseActivity extends AppCompatActivity {
         mPhotoWrappers = mCasePresenter.loadPhotosFromDb();
         mPagerAdapter = new CaseViewPagerAdapter(this, fragmentManager, mDocumentWrappers, mPhotoWrappers);
 
+        mCaseName = findViewById(R.id.caseName);
         mPagerAdapter.setCasePresenter(mCasePresenter);
         mNewFilesBottomSheetDialog = new BottomSheetDialog(this);
         mShareBottomSheetDialog = new BottomSheetDialog(this);
@@ -214,7 +217,43 @@ public class CaseActivity extends AppCompatActivity {
 
             }
         });
-        mShareZipFile = mShareMenuDialog.findViewById(R.id.shareZipFile);
+        mShareAllFiles = mShareMenuDialog.findViewById(R.id.shareAllFiles);
+        mShareAllFiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Uri> filesToSend = new ArrayList<>();
+                Set<String> mimeTypeSet = new HashSet<>();
+                for (DocumentWrapper doc : mDocumentWrappers) {
+                    String type = null;
+                    String extension = MimeTypeMap.getFileExtensionFromUrl(doc.getPath().toString());
+                    if (extension != null) {
+                        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+                    }
+                    mimeTypeSet.add(type);
+                    filesToSend.add(Uri.fromFile(doc.getPath()));
+                }
+                for (PhotoWrapper photo : mPhotoWrappers) {
+                    String type = null;
+                    String extension = MimeTypeMap.getFileExtensionFromUrl(photo.getPath().toString());
+                    if (extension != null) {
+                        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+                    }
+                    mimeTypeSet.add(type);
+                    filesToSend.add(Uri.fromFile(photo.getPath()));
+                }
+                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                intent.setType("*/*");
+
+                String[] mimetypes = (String[]) mimeTypeSet.toArray(new String[0]);
+                Log.d(CaseActivity.class.getSimpleName(), mimeTypeSet.toString());
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+                intent.putExtra(Intent.EXTRA_STREAM, filesToSend);
+                mShareButton.setVisibility(View.VISIBLE);
+                mAddFileButton.setVisibility(View.VISIBLE);
+                startActivity(intent);
+                mShareBottomSheetDialog.cancel();
+            }
+        });
 
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout = findViewById(R.id.tablayout);
@@ -245,10 +284,12 @@ public class CaseActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         mDocumentWrappers.clear();
+        mCaseName.setText(mCasePresenter.getCase(caseId).getName());
         mDocumentWrappers.addAll(mCasePresenter.loadDocumentsFromDb());
         mPhotoWrappers.clear();
         mPhotoWrappers.addAll(mCasePresenter.loadPhotosFromDb());
         mPagerAdapter.notifyDataSetChanged();
+
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.Set;
 
 public class PhotosFragment extends Fragment {
 
+    private static final String TAG = PhotosFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private PhotoAdapter mPhotosAdapter;
     private List<PhotoWrapper> mPhotoWrappers;
@@ -34,6 +36,7 @@ public class PhotosFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedStateInstance) {
@@ -68,6 +71,25 @@ public class PhotosFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        registerForContextMenu(mRecyclerView);
+        Log.d(TAG, "onResume()");
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterForContextMenu(mRecyclerView);
+        Log.d(TAG, "onDestroy()");
+
+    }
+
+    public void unregisterForContextMenu() {
+        unregisterForContextMenu(mRecyclerView);
+    }
+
+    public void registerForContextMenu() {
         registerForContextMenu(mRecyclerView);
     }
 

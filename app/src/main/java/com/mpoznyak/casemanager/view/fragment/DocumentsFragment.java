@@ -60,6 +60,14 @@ public class DocumentsFragment extends Fragment {
 
     }
 
+    public void unregisterForContextMenu() {
+        unregisterForContextMenu(mRecyclerView);
+    }
+
+    public void registerForContextMenu() {
+        registerForContextMenu(mRecyclerView);
+    }
+
 
     @Override
     public void onResume() {
@@ -71,10 +79,17 @@ public class DocumentsFragment extends Fragment {
         Log.d(TAG, "onResume called");
     }
 
+
     public void setClickListenerOption(ClickListenerOption option, Set<DocumentWrapper> docs) {
         mDocumentAdapter.setClickListenerOption(option, docs);
+    }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy()");
+        unregisterForContextMenu(mRecyclerView);
     }
 
 

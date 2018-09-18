@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/shareZipFile"
+        android:id="@+id/shareAllFiles"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:clickable="true"
@@ -80,15 +80,15 @@
         android:padding="16dp">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_zip" />
+            android:src="@drawable/ic_package" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
-            android:text="@string/send_as_zip_package" />
+            android:text="@string/send_all_files" />
     </LinearLayout>
 </LinearLayout>
