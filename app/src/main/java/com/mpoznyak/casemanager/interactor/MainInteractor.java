@@ -43,8 +43,13 @@ public class MainInteractor {
         return mGetCases.execute(mCaseRepository, new CasesByTypeSpecification(getLastOpenedType().getName()));
     }
 
-    public Type getLastOpenedType() {
+    public Type getLastOpenedType() throws IndexOutOfBoundsException {
         return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification()).get(0);
+
+    }
+
+    public boolean lastOpenedTypeExists() throws IndexOutOfBoundsException {
+        return mGetTypes.execute(mTypeRepository, new LastOpenedTypeSpecification()).size() != 0;
 
     }
 

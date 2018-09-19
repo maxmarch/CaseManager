@@ -52,6 +52,10 @@ public class MainPresenter {
         return null;
     }
 
+    public boolean lastOpenedTypeExists() {
+        return mMainInteractor.lastOpenedTypeExists();
+    }
+
     public List<Case> loadCasesBySelectedType(String type) {
         return mMainInteractor.getCasesByType(type);
     }

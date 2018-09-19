@@ -272,19 +272,24 @@ public class CaseActivity extends AppCompatActivity {
     private void checkFilesExistence() {
         ArrayList<DocumentWrapper> docs = mCasePresenter.loadDocumentsFromDb();
         ArrayList<PhotoWrapper> photos = mCasePresenter.loadPhotosFromDb();
-        for (PhotoWrapper photo : photos) {
-            if (!photo.getPath().exists()) {
-
+        for (PhotoWrapper photoWrapper : photos) {
+            if (!photoWrapper.getPath().exists()) {
+                mCasePresenter.deleteEntry(photoWrapper);
             }
         }
-
+        for (DocumentWrapper documentWrapper : docs) {
+            if (!documentWrapper.getPath().exists()) {
+                mCasePresenter.deleteEntry(documentWrapper);
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mDocumentWrappers.clear();
+        checkFilesExistence();
         mCaseName.setText(mCasePresenter.getCase(caseId).getName());
+        mDocumentWrappers.clear();
         mDocumentWrappers.addAll(mCasePresenter.loadDocumentsFromDb());
         mPhotoWrappers.clear();
         mPhotoWrappers.addAll(mCasePresenter.loadPhotosFromDb());
