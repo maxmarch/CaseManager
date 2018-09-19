@@ -269,7 +269,7 @@ public class CaseActivity extends AppCompatActivity {
         });
     }
 
-    private void checkFilesExistence() {
+    private void clearDataIfNotExists() {
         ArrayList<DocumentWrapper> docs = mCasePresenter.loadDocumentsFromDb();
         ArrayList<PhotoWrapper> photos = mCasePresenter.loadPhotosFromDb();
         for (PhotoWrapper photoWrapper : photos) {
@@ -287,7 +287,7 @@ public class CaseActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        checkFilesExistence();
+        clearDataIfNotExists();
         mCaseName.setText(mCasePresenter.getCase(caseId).getName());
         mDocumentWrappers.clear();
         mDocumentWrappers.addAll(mCasePresenter.loadDocumentsFromDb());

@@ -10,16 +10,14 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarCaseActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@color/colorCaseToolbar"
             android:fitsSystemWindows="true"
-
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -84,7 +82,8 @@
             android:clickable="false"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorTextOnDarkBackground" />
+            app:tabTextColor="@color/colorTextOnDarkBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
