@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {
 
+    private SparseBooleanArray mArray;
     private List<PhotoWrapper> mPhotoWrappers;
     private OnItemClickListener mClickListener;
     private FragmentActivity mActivity;
@@ -52,6 +54,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         mActivity = activity;
         mClickListenerOption = ClickListenerOption.DEFAULT;
         mMultiSelectedPhotos = new HashSet<>();
+        mArray = new SparseBooleanArray();
     }
 
     public void setClickListenerOption(ClickListenerOption option, Set<PhotoWrapper> photos) {
@@ -83,11 +86,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                     case SHARE_MULTIPLE_ITEMS:
                         if (!mMultiSelectedPhotos.contains(photoWrapper)) {
                             onClickShareMultipleItems(photoWrapper);
-                            holder.mThumbnail.setColorFilter(mActivity.getResources()
-                                    .getColor(R.color.colorSelectedItem));
+                            mArray.put(position, true);
+                            notifyDataSetChanged();
+
                         } else {
                             onClickShareMultipleItems(photoWrapper);
                             holder.mThumbnail.setColorFilter(null);
+                            mArray.put(position, false);
+                            notifyDataSetChanged();
+
                         }
                         break;
                 }
@@ -108,6 +115,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .transition(withCrossFade())
                 .into(holder.mThumbnail);
+
+        if (mArray.get(position)) {
+            holder.mThumbnail.setColorFilter(mActivity.getResources()
+                    .getColor(R.color.colorSelectedItem));
+        } else {
+            holder.mThumbnail.setColorFilter(mActivity.getResources().getColor(android.R.color.transparent));
+        }
+
     }
 
     @Override

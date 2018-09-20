@@ -1,7 +1,9 @@
 package com.mpoznyak.casemanager.adapter;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,14 @@ import java.util.List;
 
 public class FileManagerAdapter extends RecyclerView.Adapter<FileManagerAdapter.FileViewHolder> {
 
+
+    private SparseBooleanArray mArray = new SparseBooleanArray();
     private List<File> mFiles;
     private OnItemClickListener mListener;
+    private Context mContext;
 
-    public FileManagerAdapter(List<File> files, OnItemClickListener listener) {
+    public FileManagerAdapter(Context context, List<File> files, OnItemClickListener listener) {
+        mContext = context;
         mFiles = files;
         mListener = listener;
     }
@@ -43,6 +49,7 @@ public class FileManagerAdapter extends RecyclerView.Adapter<FileManagerAdapter.
         private TextView mName;
         private TextView mDate;
         private TextView mSize;
+
 
         public FileViewHolder(View v) {
             super(v);
@@ -80,7 +87,20 @@ public class FileManagerAdapter extends RecyclerView.Adapter<FileManagerAdapter.
         viewHolder.mName.setText(file.getName());
         viewHolder.mDate.setText(getLastModifiedDate(file));
         viewHolder.mSize.setText(String.valueOf(file.length() / 1024));
+        if (mArray.get(position)) {
+            viewHolder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.colorSelectedItem));
+        } else {
+            viewHolder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.colorBackground));
+        }
         file = null;
+    }
+
+    public SparseBooleanArray getSparseBooleanArray() {
+        return mArray;
+    }
+
+    public void refreshSparseBooleanArray() {
+        mArray = new SparseBooleanArray();
     }
 
     @Override

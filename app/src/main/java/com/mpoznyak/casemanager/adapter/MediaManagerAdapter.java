@@ -3,6 +3,7 @@ package com.mpoznyak.casemanager.adapter;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class MediaManagerAdapter extends RecyclerView.Adapter<MediaManagerAdapter.FileViewHolder> {
 
+    private SparseBooleanArray mArray = new SparseBooleanArray();
     private List<File> mFiles;
     private OnItemClickListener mListener;
     private Context mContext;
@@ -87,12 +89,26 @@ public class MediaManagerAdapter extends RecyclerView.Adapter<MediaManagerAdapte
                 mListener.onItemClick(v);
             }
         });
+
+        if (mArray.get(position)) {
+            viewHolder.mIcon.setColorFilter(mContext.getResources().getColor(R.color.colorSelectedItem));
+        } else {
+            viewHolder.mIcon.setColorFilter(mContext.getResources().getColor(android.R.color.transparent));
+        }
         String name = file.getName();
         if (name.length() > 20) {
             name = name.substring(0, 16) + "...";
         }
         viewHolder.mName.setText(name);
         file = null;
+    }
+
+    public SparseBooleanArray getSparseBooleanArray() {
+        return mArray;
+    }
+
+    public void refreshSparseBooleanArray() {
+        mArray = new SparseBooleanArray();
     }
 
     @Override

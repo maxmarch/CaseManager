@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -34,6 +35,9 @@ import java.util.Set;
 
 public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List<File>> {
 
+    private ImageButton mSelectButton;
+    private RecyclerView mRecyclerView;
+    private SparseBooleanArray mArray;
     private static final String TAG = MediaManagerPresenter.class.getSimpleName();
     private boolean isBtnMultiSelectClicked = false;
     private AppCompatActivity mActivity;
@@ -87,12 +91,14 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
             if (!fileClicked.isDirectory()) {
                 if (isExtensionAppropriate(fileClicked.getPath())) {
                     if (!mFilesMultiSelect.contains(fileClicked)) {
-                        v.setBackgroundColor(mActivity.getResources().getColor(R.color.colorSelectedItem));
                         mFilesMultiSelect.add(fileClicked);
+                        mArray.put(position, true);
+                        mAdapter.notifyDataSetChanged();
                         Log.d(TAG, "Selected:   " + fileClicked.getPath());
                     } else {
-                        v.setBackgroundColor(mActivity.getResources().getColor(R.color.colorBackground));
                         mFilesMultiSelect.remove(fileClicked);
+                        mArray.put(position, false);
+                        mAdapter.notifyDataSetChanged();
                         Log.d(TAG, "Unselected:   " + fileClicked.getPath());
                     }
                 } else {
@@ -114,6 +120,7 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
             }
         }, mActivity);
         recyclerView.setAdapter(mAdapter);
+        mArray = mAdapter.getSparseBooleanArray();
     }
 
     private void setDefaultListItemClicked(RecyclerView recyclerView, View v) {
@@ -151,6 +158,8 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAdapter.refreshSparseBooleanArray();
+                mAdapter.notifyDataSetChanged();
                 homePressed();
             }
         });
@@ -164,6 +173,8 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
     }
 
     public void setOnMultiSelectBtnListener(ImageButton button, RecyclerView recyclerView) {
+        mSelectButton = button;
+        mRecyclerView = recyclerView;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,6 +233,16 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
             mUtil.setCurrentDir(mUtil.getPreviousDir());
             mNameDirectoryTv.setText(mUtil.getCurrentDir().getName());
 
+            mSelectButton.setImageResource(R.drawable.ic_baseline_check_box_24px);
+            addDocuments(mFilesMultiSelect);
+            mAdapter.removeListener();
+            mAdapter.setListener(new MediaManagerAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v) {
+                    setDefaultListItemClicked(mRecyclerView, v);
+                }
+            });
+            isBtnMultiSelectClicked = false;
             mFileLoader.onContentChanged();
         }
     }

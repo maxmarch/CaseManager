@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import java.util.Set;
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.DocumentViewHolder> {
 
 
+    private final SparseBooleanArray mArray = new SparseBooleanArray();
     private static final String TAG = DocumentAdapter.class.getSimpleName();
     private List<DocumentWrapper> mDocumentWrappers;
     private Context mContext;
@@ -43,6 +45,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
 
     public class DocumentViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
+        private boolean isSelected = false;
+
         private LinearLayout mdocumentLayout;
         private ImageView mDocumentIcon;
         private TextView mDocumentName;
@@ -56,6 +60,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
             mDocumentName = itemView.findViewById(R.id.nameDocument);
             mDocumentSize = itemView.findViewById(R.id.sizeDocument);
             mDocumentIcon = itemView.findViewById(R.id.iconDocument);
+            mdocumentLayout.setBackgroundColor(mContext.getResources()
+                    .getColor(R.color.colorBackground));
 
             itemView.setOnCreateContextMenuListener(this);
 
@@ -86,7 +92,6 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @Override
     public void onBindViewHolder(DocumentViewHolder holder, int position) {
         DocumentWrapper documentWrapper = mDocumentWrappers.get(position);
-
         holder.mDocumentName.setText(documentWrapper.getName());
         holder.mDocumentDate.setText(documentWrapper.getLastModified());
         holder.mDocumentSize.setText(String.valueOf(documentWrapper.getSize()));
@@ -103,12 +108,13 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
                     case SHARE_MULTIPLE_ITEMS:
                         if (!mSelectedDocumentsSet.contains(documentWrapper)) {
                             onClickShareMultipleItems(documentWrapper);
-                            holder.mdocumentLayout.setBackgroundColor(mContext.getResources()
-                                    .getColor(R.color.colorSelectedItem));
+                            mArray.put(position, true);
+                            notifyDataSetChanged();
+
                         } else {
                             onClickShareMultipleItems(documentWrapper);
-                            holder.mdocumentLayout.setBackgroundColor(mContext.getResources()
-                                    .getColor(R.color.colorBackground));
+                            mArray.put(position, false);
+                            notifyDataSetChanged();
                         }
                         break;
                 }
@@ -121,6 +127,15 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
                 return false;
             }
         });
+
+        if (mArray.get(position)) {
+            holder.mdocumentLayout.setBackgroundColor(mContext.getResources()
+                    .getColor(R.color.colorSelectedItem));
+        } else {
+            holder.mdocumentLayout.setBackgroundColor(mContext.getResources()
+                    .getColor(R.color.colorBackground));
+        }
+
         Log.d(TAG, "onBindViewHolder: item name" + documentWrapper.getPath());
 
     }

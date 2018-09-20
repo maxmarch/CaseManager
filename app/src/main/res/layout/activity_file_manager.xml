@@ -8,7 +8,8 @@
         android:id="@+id/toolbarFileManager"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorToolbar">
+        android:background="@color/colorToolbar"
+        android:fitsSystemWindows="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,6 +59,9 @@
         app:layout_constraintTop_toBottomOf="@id/toolbarFileManager"
         android:id="@+id/fileManagerRecyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="?attr/actionBarSize"
+        android:scrollbars="vertical" />
 
 </android.support.constraint.ConstraintLayout>
