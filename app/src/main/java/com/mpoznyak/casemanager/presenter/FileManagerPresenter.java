@@ -183,6 +183,7 @@ public class FileManagerPresenter implements LoaderManager.LoaderCallbacks<List<
                             mSelectListener.onMultiSelect(recyclerView, v);
                         }
                     });
+                    Toast.makeText(mActivity, "Choose documents .pdf , .doc , .docx", Toast.LENGTH_SHORT).show();
                     Log.d(FileManagerPresenter.class.getSimpleName(), "checkbox is true");
                     isBtnMultiSelectClicked = true;
                 } else {
@@ -240,6 +241,8 @@ public class FileManagerPresenter implements LoaderManager.LoaderCallbacks<List<
             isBtnMultiSelectClicked = false;
 
             mFileLoader.onContentChanged();
+        } else {
+            mActivity.finish();
         }
     }
 

@@ -13,8 +13,10 @@
         tools:activity="com.mpoznyak.casemanager.view.activity.MainActivity">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbarMainActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/mainCollapsingToolbar"
@@ -106,7 +108,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="end|bottom"
-            android:layout_margin="20dp"
+            android:layout_margin="16dp"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_baseline_add_24px"
@@ -116,29 +118,31 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
-        android:background="#FFF"
-
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#FFF"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/drawer_navigation">
+        app:headerLayout="@layout/header_navigation">
 
         <android.support.v4.widget.NestedScrollView
-            android:scrollbars="vertical"
-            android:layout_marginTop="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:scrollbars="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <LinearLayout
-                    android:background="#FFF"
+                android:layout_height="wrap_content"
+                android:background="#FFF">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/main_types_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/main_types_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="vertical" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
 
 
         </android.support.v4.widget.NestedScrollView>

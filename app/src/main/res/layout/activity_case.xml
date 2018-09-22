@@ -8,7 +8,8 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarCaseActivity"
+
+        android:id="@+id/appbarCaseActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,37 +25,39 @@
                 android:layout_height="match_parent">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/caseToolbar"
+                    android:id="@+id/toolbarCaseActivity"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize">
 
                     <ImageButton
-                        android:id="@+id/btnBackArrowCaseView"
+                        android:id="@+id/buttonBackCaseActivity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:background="@color/colorToolbar"
                         android:src="@drawable/ic_baseline_arrow_back_24px"
                         android:tint="@color/colorTextWhite" />
 
                     <FrameLayout
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginEnd="15dp">
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp">
 
                         <ImageButton
-                            android:id="@+id/okButton"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:id="@+id/buttonOkCaseActivity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:background="@color/colorToolbar"
                             android:contentDescription="@string/new_type"
                             android:src="@drawable/ic_baseline_check_box_24px"
                             android:tint="@color/colorTextWhite" />
 
                         <ImageButton
-                            android:id="@+id/shareButton"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:id="@+id/buttonShareCaseActivity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:background="@color/colorToolbar"
                             android:contentDescription="@string/new_type"
                             android:src="@drawable/ic_baseline_share_24px"
@@ -64,46 +67,50 @@
                 </android.support.v7.widget.Toolbar>
 
                 <TextView
-                    android:id="@+id/caseName"
+                    android:id="@+id/textNameCaseActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
                     android:textColor="@color/colorTextOnDarkBackground"
-                    app:layout_constraintTop_toBottomOf="@id/caseToolbar" />
+                    android:textSize="32sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.021"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolbarCaseActivity"
+                    app:layout_constraintVertical_bias="0.741" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout"
+            android:id="@+id/tablayoutFilesCaseActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTabLayoutCaseActivity"
             android:clickable="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorTextOnDarkBackground"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:tabTextColor="@color/colorTextOnDarkBackground" />
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/caseViewPager"
+        android:id="@+id/viewpagerFilesCaseActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorViewPager"
-        app:layout_anchor="@id/appBarCaseActivity"
+        app:layout_anchor="@id/appbarCaseActivity"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/openFileManager"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:id="@+id/buttonAddFilesCaseActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
+        android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_baseline_add_24px"

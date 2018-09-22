@@ -37,7 +37,7 @@ public class NewTypeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_type);
         mWelcomePresenter = new NewTypePresenterImpl(this);
         ImageButton addTypeButton = findViewById(R.id.btn_add_type);
-        mConstraintLayout = findViewById(R.id.typeadding_screen);
+        mConstraintLayout = findViewById(R.id.layoutNewTypeActivity);
         mConstraintLayout.setOnTouchListener((v, w) -> {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -72,7 +72,7 @@ public class NewTypeActivity extends AppCompatActivity {
             }
         });
 
-        mBackButton = findViewById(R.id.backArrow);
+        mBackButton = findViewById(R.id.buttonBackNewTypeActivity);
         mBackButton.setOnClickListener(v -> this.onBackPressed());
 
     }

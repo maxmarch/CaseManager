@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -61,8 +62,11 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton mNewCaseBtn;
     private MainPresenter mMainPresenter;
     private String currentTypeName;
+    private AppBarLayout mAppBar;
     private List<Case> mCases;
     private List<Type> mTypes;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor mPrefEditor;
     private Type mCurrentType;
     private int mCurrentTypePosition;
     private ItemTouchHelper.SimpleCallback mItemTouchHelperCallback;
@@ -71,16 +75,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMainPresenter = new MainPresenter(this);
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("app_pref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        preferences = getApplicationContext().getSharedPreferences("app_pref", MODE_PRIVATE);
+        mPrefEditor = preferences.edit();
         if (mMainPresenter.typeDataisEmpty() && !preferences.getBoolean("welcome_shown", false)) {
             Intent welcomeIntent = new Intent(this, WelcomeActivity.class);
-            editor.putBoolean("welcome_shown", true).apply();
+            mPrefEditor.putBoolean("welcome_shown", true).apply();
             startActivity(welcomeIntent);
         } else {
             setContentView(R.layout.activity_main);
             verifyPermissions();
 
+            mAppBar = findViewById(R.id.appbarMainActivity);
             mNavigationView = findViewById(R.id.navigation);
             View header = mNavigationView.getHeaderView(0);
             mAddTypeButton = header.findViewById(R.id.main_add_type);
@@ -208,7 +213,9 @@ public class MainActivity extends AppCompatActivity
             }
             mNameToolbarTv.setText(currentTypeName);
         } else {
-            mNameToolbarTv.setText(null);
+            if (preferences.getBoolean("welcome_shown", false)) {
+                mNameToolbarTv.setText(null);
+            }
             mNewCaseBtn.setVisibility(View.INVISIBLE);
             mNoTypePosterLayout.setVisibility(View.VISIBLE);
         }

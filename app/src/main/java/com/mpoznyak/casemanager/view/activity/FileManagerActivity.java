@@ -2,6 +2,8 @@ package com.mpoznyak.casemanager.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,6 +33,10 @@ public class FileManagerActivity extends AppCompatActivity {
         setPresenter(new FileManagerPresenter(this, caseId));
         setContentView(R.layout.activity_file_manager);
         mRecyclerView = findViewById(R.id.fileManagerRecyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                , linearLayoutManager.getOrientation()));
         mPresenter.initRecyclerView(mRecyclerView);
         mBackButton = findViewById(R.id.backArrowFileManager);
         mNameCurrentDir = findViewById(R.id.currentDirectory);

@@ -1,10 +1,10 @@
 package com.mpoznyak.casemanager.adapter;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mpoznyak.casemanager.R;
@@ -28,7 +28,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.CaseViewHolder
     }
 
     public class CaseViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout viewForeground, viewBackground;
+        public ConstraintLayout viewForeground, viewBackground;
         private TextView mName, mDate;
 
         public CaseViewHolder(View view) {

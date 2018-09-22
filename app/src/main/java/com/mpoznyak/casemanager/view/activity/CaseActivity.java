@@ -62,6 +62,7 @@ public class CaseActivity extends AppCompatActivity {
     private BottomSheetDialog mShareBottomSheetDialog;
     private int mViewPagerPosition;
     private CasePresenter mCasePresenter;
+    private ImageButton mBackButton;
     private ImageButton mShareButton;
     private ImageButton mOkButton;
     private File photoFile;
@@ -79,13 +80,15 @@ public class CaseActivity extends AppCompatActivity {
         caseId = getIntent().getExtras().getInt("caseId");
         mCasePresenter = new CasePresenter(this, caseId);
         setContentView(R.layout.activity_case);
-        mViewPager = findViewById(R.id.caseViewPager);
+        mViewPager = findViewById(R.id.viewpagerFilesCaseActivity);
         FragmentManager fragmentManager = getSupportFragmentManager();
         mDocumentWrappers = mCasePresenter.loadDocumentsFromDb();
         mPhotoWrappers = mCasePresenter.loadPhotosFromDb();
         mPagerAdapter = new CaseViewPagerAdapter(this, fragmentManager, mDocumentWrappers, mPhotoWrappers);
 
-        mCaseName = findViewById(R.id.caseName);
+        mBackButton = findViewById(R.id.buttonBackCaseActivity);
+        mBackButton.setOnClickListener(v -> finish());
+        mCaseName = findViewById(R.id.textNameCaseActivity);
         mPagerAdapter.setCasePresenter(mCasePresenter);
         mNewFilesBottomSheetDialog = new BottomSheetDialog(this);
         mShareBottomSheetDialog = new BottomSheetDialog(this);
@@ -94,8 +97,8 @@ public class CaseActivity extends AppCompatActivity {
         mNewFilesBottomSheetDialog.setContentView(mNewFilesDialog);
         mShareBottomSheetDialog.setContentView(mShareMenuDialog);
 
-        mShareButton = findViewById(R.id.shareButton);
-        mOkButton = findViewById(R.id.okButton);
+        mShareButton = findViewById(R.id.buttonShareCaseActivity);
+        mOkButton = findViewById(R.id.buttonOkCaseActivity);
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,10 +259,10 @@ public class CaseActivity extends AppCompatActivity {
         });
 
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout = findViewById(R.id.tablayout);
+        mTabLayout = findViewById(R.id.tablayoutFilesCaseActivity);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        mAddFileButton = findViewById(R.id.openFileManager);
+        mAddFileButton = findViewById(R.id.buttonAddFilesCaseActivity);
         mAddFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,7 +291,11 @@ public class CaseActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         clearDataIfNotExists();
-        mCaseName.setText(mCasePresenter.getCase(caseId).getName());
+        String name = mCasePresenter.getCase(caseId).getName();
+        if (name.length() > 16) {
+            name = name.substring(0, 16) + "...";
+        }
+        mCaseName.setText(name);
         mDocumentWrappers.clear();
         mDocumentWrappers.addAll(mCasePresenter.loadDocumentsFromDb());
         mPhotoWrappers.clear();

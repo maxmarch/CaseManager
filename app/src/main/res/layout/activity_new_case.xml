@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/welcome_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
     android:background="@color/colorBackground">
 
     <android.support.constraint.ConstraintLayout
@@ -13,7 +11,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/add_type_toolbar_welcome"
+            android:id="@+id/toolbarNewTypeActivity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorToolbar">
@@ -23,61 +21,72 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:background="@color/colorToolbar"
                     android:id="@+id/backArrowNewCase"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="23dp"
+                    android:layout_height="29dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorToolbar"
                     android:src="@drawable/ic_baseline_arrow_back_24px"
-                    android:tint="@color/colorTextWhite" />
+                    android:tint="@color/colorTextWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    app:layout_constraintLeft_toRightOf="@id/backArrow"
-                    android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="18sp"
+                    android:gravity="center_horizontal|center_vertical"
                     android:text="@string/new_case"
                     android:textColor="@color/colorTextWhite"
-                    android:gravity="center_horizontal|center_vertical" />
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/buttonBackNewTypeActivity"
+                    app:layout_constraintStart_toEndOf="@+id/backArrowNewCase"
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
 
             <ImageButton
-                android:contentDescription="@string/new_type"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:id="@+id/btnAddCase"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_baseline_done_24px"
-                android:tint="@color/colorTextWhite"
+                android:layout_marginEnd="4dp"
                 android:background="@color/colorToolbar"
-                android:layout_marginEnd="15dp" />
+                android:contentDescription="@string/new_type"
+                android:src="@drawable/ic_baseline_done_24px"
+                android:tint="@color/colorTextWhite" />
         </android.support.v7.widget.Toolbar>
 
         <RelativeLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_type_toolbar_welcome"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarNewTypeActivity">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
                 android:text="@string/welome_add_type_nameTv"
-                android:textColor="@color/colorAccent"
-                android:layout_marginStart="2dp" />
+                android:textColor="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/etNewCase"
-                android:maxLength="20"
-                android:maxLines="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:hint="@string/new_case_hint_name"
-                android:layout_marginTop="12dp">
+                android:maxLength="20"
+                android:maxLines="1">
 
                 <requestFocus />
             </EditText>

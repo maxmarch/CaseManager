@@ -73,9 +73,9 @@ public class FileManagerAdapter extends RecyclerView.Adapter<FileManagerAdapter.
 
         File file = mFiles.get(position);
         if (mFiles.get(position).isDirectory()) {
-            viewHolder.mIcon.setImageResource(R.drawable.ic_baseline_folder_24px);
+            viewHolder.mIcon.setImageResource(R.drawable.ic_folder_file_manager);
         } else {
-            viewHolder.mIcon.setImageResource(R.drawable.ic_baseline_insert_drive_file_24px);
+            viewHolder.mIcon.setImageResource(R.drawable.ic_document_file_manager);
         }
 
         viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +84,21 @@ public class FileManagerAdapter extends RecyclerView.Adapter<FileManagerAdapter.
                 mListener.onItemClick(v);
             }
         });
-        viewHolder.mName.setText(file.getName());
+        String name = file.getName();
+        if (name.length() > 21) {
+            name = name.substring(0, 21) + "...";
+        }
+        viewHolder.mName.setText(name);
         viewHolder.mDate.setText(getLastModifiedDate(file));
-        viewHolder.mSize.setText(String.valueOf(file.length() / 1024));
+        long size = file.length();
+        String sizeText = size / 1024 + " Kb";
+        if (size > 600000) {
+            sizeText = size / 1024 / 1024 + " Mb";
+        }
+        if (size > 600000000) {
+            sizeText = size / 1024 / 1024 / 1024 + " Gb";
+        }
+        viewHolder.mSize.setText(sizeText);
         if (mArray.get(position)) {
             viewHolder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.colorSelectedItem));
         } else {
