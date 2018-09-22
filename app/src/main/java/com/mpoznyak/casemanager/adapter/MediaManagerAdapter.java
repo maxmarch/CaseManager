@@ -73,8 +73,9 @@ public class MediaManagerAdapter extends RecyclerView.Adapter<MediaManagerAdapte
 
         File file = mFiles.get(position);
         if (mFiles.get(position).isDirectory()) {
-            viewHolder.mIcon.setImageResource(R.drawable.ic_baseline_folder_24px);
-            viewHolder.mIcon.setColorFilter(mContext.getResources().getColor(R.color.colorNavigationBar));
+            viewHolder.mIcon.setImageResource(R.drawable.ic_folder_file_manager);
+            viewHolder.mIcon.requestLayout();
+            viewHolder.mIcon.setPadding(16, 16, 16, 16);
         } else {
             Glide.with(mContext).load(file.getPath())
                     .thumbnail(0.5f)

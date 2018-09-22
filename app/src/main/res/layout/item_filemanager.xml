@@ -10,7 +10,12 @@
     <ImageView
         android:id="@+id/fileIcon"
         android:layout_width="86dp"
-        android:layout_height="match_parent" />
+        android:layout_height="121dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/fileName"

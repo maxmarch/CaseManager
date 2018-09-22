@@ -7,13 +7,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -100,7 +100,7 @@ public class SlideshowFragment extends DialogFragment {
         File photo = mPhotos.get(mSelectedPositionPhotoList);
         mSendButton.setOnClickListener(w -> {
             mMediaManagerInteractor.addPhoto(photo);
-            Log.d(SlideshowFragment.class.getSimpleName(), "Positiion " + photo.getName());
+            Toast.makeText(getActivity(), "Photo's added", Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager()
                     .popBackStack();
         });
@@ -121,7 +121,7 @@ public class SlideshowFragment extends DialogFragment {
             File photo = mPhotos.get(position);
             mSendButton.setOnClickListener(w -> {
                 mMediaManagerInteractor.addPhoto(photo);
-                Log.d(SlideshowFragment.class.getSimpleName(), "Positiion " + photo.getName());
+                Toast.makeText(getActivity(), "Photo's added", Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager()
                         .popBackStack();
             });

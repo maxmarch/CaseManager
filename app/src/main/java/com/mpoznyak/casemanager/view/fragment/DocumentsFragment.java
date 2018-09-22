@@ -2,6 +2,7 @@ package com.mpoznyak.casemanager.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class DocumentsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_document_gallery, parent, false);
         mDocumentWrappers = getArguments().getParcelableArrayList(KEY);
         mRecyclerView = view.findViewById(R.id.documents_recycler_view);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mDocumentAdapter = new DocumentAdapter(mDocumentWrappers, getActivity());
         Log.d(TAG, "DocumentAdapter recieves the next data: " + mDocumentWrappers);
 

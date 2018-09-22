@@ -3,6 +3,7 @@ package com.mpoznyak.casemanager.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -12,12 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mpoznyak.casemanager.R;
 import com.mpoznyak.casemanager.util.ClickListenerOption;
 import com.mpoznyak.data.wrapper.DocumentWrapper;
+
+import org.apache.commons.io.FilenameUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -45,21 +47,21 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
 
     public class DocumentViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        private boolean isSelected = false;
-
-        private LinearLayout mdocumentLayout;
+        private ConstraintLayout mdocumentLayout;
         private ImageView mDocumentIcon;
         private TextView mDocumentName;
         private TextView mDocumentSize;
+        private TextView mDocumentExtension;
         private TextView mDocumentDate;
 
         public DocumentViewHolder(View itemView) {
             super(itemView);
-            mdocumentLayout = itemView.findViewById(R.id.documentCaseView);
-            mDocumentDate = itemView.findViewById(R.id.dateDocument);
-            mDocumentName = itemView.findViewById(R.id.nameDocument);
-            mDocumentSize = itemView.findViewById(R.id.sizeDocument);
-            mDocumentIcon = itemView.findViewById(R.id.iconDocument);
+            mdocumentLayout = itemView.findViewById(R.id.layoutDocumentItem);
+            mDocumentDate = itemView.findViewById(R.id.textDateDocumentItem);
+            mDocumentExtension = itemView.findViewById(R.id.textDocumentExtensionItem);
+            mDocumentName = itemView.findViewById(R.id.textNameDocumentItem);
+            mDocumentSize = itemView.findViewById(R.id.textSizeDocumentItem);
+            mDocumentIcon = itemView.findViewById(R.id.imageIconDocumentItem);
             mdocumentLayout.setBackgroundColor(mContext.getResources()
                     .getColor(R.color.colorBackground));
 
@@ -92,9 +94,21 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @Override
     public void onBindViewHolder(DocumentViewHolder holder, int position) {
         DocumentWrapper documentWrapper = mDocumentWrappers.get(position);
-        holder.mDocumentName.setText(documentWrapper.getName());
+        String name = documentWrapper.getPath().getName();
+        if (name.length() > 24) {
+            name = name.substring(0, 24) + "...";
+        }
+        holder.mDocumentName.setText(name);
         holder.mDocumentDate.setText(documentWrapper.getLastModified());
-        holder.mDocumentSize.setText(String.valueOf(documentWrapper.getSize()));
+        long size = documentWrapper.getPath().length();
+        String sizeText = size / 1024 + " Kb";
+        if (size > 600000) {
+            sizeText = size / 1024 / 1024 + " Mb";
+        }
+        if (size > 600000000) {
+            sizeText = size / 1024 / 1024 / 1024 + " Gb";
+        }
+        holder.mDocumentSize.setText(String.valueOf(sizeText));
         holder.mdocumentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +150,29 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
                     .getColor(R.color.colorBackground));
         }
 
-        Log.d(TAG, "onBindViewHolder: item name" + documentWrapper.getPath());
+        String ext = FilenameUtils.getExtension(documentWrapper.getPath().toString());
+        if (ext.equals("doc")) {
+            holder.mDocumentExtension.setText("doc");
+            holder.mDocumentIcon.setBackgroundColor(mContext.getResources().getColor(android.R.color.holo_blue_light));
+        }
+        if (ext.equals("docx")) {
+            holder.mDocumentExtension.setText("docx");
+
+
+            holder.mDocumentIcon.setBackgroundColor(mContext.getResources().getColor(android.R.color.holo_blue_light));
+
+        }
+        if (ext.equals("pdf")) {
+            holder.mDocumentExtension.setText("pdf");
+
+            holder.mDocumentIcon.setBackgroundColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
+
+        }
+
+
+
+
+
 
     }
 

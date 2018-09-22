@@ -12,7 +12,9 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp">
 
             <ImageButton
                 android:id="@+id/backArrowMediaManager"
@@ -20,6 +22,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
                 android:background="@color/colorToolbar"
                 android:src="@drawable/ic_baseline_arrow_back_24px"
                 android:tint="@color/colorTextWhite"
@@ -31,26 +36,33 @@
                 android:id="@+id/currentDirectoryMediaManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:gravity="center_horizontal|center_vertical"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="18sp"
-                app:layout_constraintLeft_toRightOf="@id/backArrowMediaManager" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/backArrowMediaManager"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/multiselectBtnMediaManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/colorNavigationBar"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:background="@color/colorCaseToolbar"
                 android:src="@drawable/ic_baseline_check_box_24px"
                 android:tint="@color/colorTextWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
 

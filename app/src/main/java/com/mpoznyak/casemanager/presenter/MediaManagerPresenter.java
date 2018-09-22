@@ -244,6 +244,9 @@ public class MediaManagerPresenter implements LoaderManager.LoaderCallbacks<List
             });
             isBtnMultiSelectClicked = false;
             mFileLoader.onContentChanged();
+
+        } else {
+            mActivity.finish();
         }
     }
 
