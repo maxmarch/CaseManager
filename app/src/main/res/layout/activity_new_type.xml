@@ -81,7 +81,7 @@
 
             <EditText
                 android:id="@+id/et_welcome_add_type"
-                android:maxLength="20"
+                android:maxLength="18"
                 android:maxLines="1"
                 android:inputType="text"
                 android:layout_width="match_parent"

@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
             mNewCaseBtn.setOnClickListener(v -> {
                 if (mMainPresenter.lastOpenedTypeExists()) {
                     Intent newCaseIntent = new Intent(this, NewCaseActivity.class);
-                    newCaseIntent.putExtra("type", currentTypeName);
+                    newCaseIntent.putExtra("type", mCurrentType.getName());
                     startActivity(newCaseIntent);
                 } else {
                     Toast.makeText(this, getString(R.string.should_add_group)
@@ -199,10 +199,11 @@ public class MainActivity extends AppCompatActivity
                     mCurrentTypePosition = i;
             }
             currentTypeName = mCurrentType.getName();
-            if (currentTypeName.length() > 16) {
-                currentTypeName = currentTypeName.substring(0, 16) + "...";
+            String textNameToolbar = currentTypeName;
+            if (textNameToolbar.length() > 16) {
+                textNameToolbar = textNameToolbar.substring(0, 16) + "...";
             }
-            mNameToolbarTv.setText(currentTypeName);
+            mNameToolbarTv.setText(textNameToolbar);
             mPrefEditor.putBoolean("empty_data", false).apply();
 
         }

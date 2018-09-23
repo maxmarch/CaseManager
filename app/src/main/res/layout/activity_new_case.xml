@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/new_case_hint_name"
-                android:maxLength="20"
+                android:maxLength="23"
                 android:maxLines="1"
                 android:inputType="text">
 
