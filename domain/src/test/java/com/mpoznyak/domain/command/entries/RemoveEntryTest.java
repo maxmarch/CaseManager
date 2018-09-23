@@ -9,9 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class RemoveEntryTest {
-    Entry mEntry = mock(Entry.class);
-    RemoveEntry interactor = mock(RemoveEntry.class);
-    Repository repository = mock(Repository.class);
+    private final Entry mEntry = mock(Entry.class);
+    private final RemoveEntry interactor = mock(RemoveEntry.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

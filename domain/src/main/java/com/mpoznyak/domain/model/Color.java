@@ -5,8 +5,8 @@ public enum Color {
     ORANGE("#f37735", "Orange"), PINK("#ffaaa5", "Pink"), POWDER_BLUE("#80AEC3", "Powder Blue"),
     VIOLET("#8874a3", "Violet"), COCOA("#c68642", "Cocoa"), ALMOND_CREAM("#CBB2A9", "Almond Cream"),
     SOFT_WHITE("#DFD7CD", "Soft White");
-    private String hexColorCode;
-    private String colorName;
+    private final String hexColorCode;
+    private final String colorName;
 
     Color(String hex, String name) {
         colorName = name;

@@ -20,7 +20,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TASKS;
 
 public class TaskRepository implements Repository<Task> {
 
-    private DatabaseHelper mDatabaseHelper;
+    private final DatabaseHelper mDatabaseHelper;
 
     public TaskRepository(DatabaseHelper helper) {
         mDatabaseHelper = helper;
@@ -49,32 +49,25 @@ public class TaskRepository implements Repository<Task> {
 
     @Override
     public void remove(Task item) {
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.delete(TABLE_TASKS, COLUMN_ID + " = ?"
                     , new String[]{String.valueOf(item.getId())});
-        } finally {
-            database.close();
         }
     }
 
     @Override
     public void update(Task item) {
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.update(TABLE_TASKS, ToContentValuesFromTask.map(item)
-                    ,COLUMN_ID + " = ?", new String[]{String.valueOf(item.getId())});
-        } finally {
-            database.close();
+                    , COLUMN_ID + " = ?", new String[]{String.valueOf(item.getId())});
         }
     }
 
     @Override
     public List<Task> query(Specification specification) {
-        final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
         final List<Task> tasks = new ArrayList<>();
 
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getReadableDatabase()) {
             final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
             for (int i = 0, size = cursor.getCount(); i < size; i++) {
@@ -85,8 +78,6 @@ public class TaskRepository implements Repository<Task> {
             cursor.close();
 
             return tasks;
-        } finally {
-            database.close();
         }
     }
 }

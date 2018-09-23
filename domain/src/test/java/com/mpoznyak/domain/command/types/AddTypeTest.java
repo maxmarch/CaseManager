@@ -11,10 +11,10 @@ import static org.mockito.Mockito.verify;
 
 public class AddTypeTest {
 
-    Type type = mock(Type.class);
-    AddType interactor = mock(AddType.class);
+    private final Type type = mock(Type.class);
+    private final AddType interactor = mock(AddType.class);
     Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

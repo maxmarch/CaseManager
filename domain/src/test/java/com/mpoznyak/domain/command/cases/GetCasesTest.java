@@ -13,9 +13,9 @@ import static org.mockito.Mockito.verify;
 public class GetCasesTest {
 
     Case mCase = mock(Case.class);
-    GetCases interactor = mock(GetCases.class);
-    Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final GetCases interactor = mock(GetCases.class);
+    private final Specification specification = mock(Specification.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

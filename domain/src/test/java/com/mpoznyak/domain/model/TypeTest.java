@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TypeTest {
 
-    private Type type = new Type();
+    private final Type type = new Type();
 
     @Before
     public void initTaskInstance() {

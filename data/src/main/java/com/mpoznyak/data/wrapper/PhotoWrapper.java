@@ -20,7 +20,7 @@ public class PhotoWrapper extends Entry implements Parcelable {
         }
     };
 
-    public PhotoWrapper(Parcel source) {
+    private PhotoWrapper(Parcel source) {
 
         mId = source.readInt();
         mCase_Id = source.readInt();

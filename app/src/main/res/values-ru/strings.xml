@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Document Assistant</string>
+    <string name="welcome_message">"Добро пожаловать в  Document Assistant. Здесь Вы можете объединять документы и фото в группы файлов (дела), чтобы в последующем облегчить доступ к ним. Вы можете загрузить дело в облачное хранилище, отправить через мессенджер или e-mail или просто открыть файл в любом доступном приложении на Вашем устройстве. "</string>
+    <string name="new_type">Новая группа</string>
+    <string name="new_case">Новое дело</string>
+    <string name="start">Начать</string>
+    <string name="circle_description">Цветовой круг</string>
+    <string name="welcome_add_type_name_textview">Название</string>
+    <string name="welcome_add_type_hint_edittext">" <i>Например, Документы по работе</i>"</string>
+    <string name="new_case_hint_name"><i>Например, Сделка купли-продажи</i></string>
+    <string name="page1">Документы</string>
+    <string name="page2">Фото</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="take_photo">Открыть камеру</string>
+    <string name="add_documents">Добавить документы</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="send_one_file">Один файл</string>
+    <string name="send_multiple_files">Несколько файлов</string>
+    <string name="send_all_files">Все файлы</string>
+    <string name="share_menu_title">Отправить...</string>
+    <string name="edit_type">Изменить группу</string>
+    <string name="no_type">Нет ни одной группы</string>
+    <string name="please_add">Создайте новую группу для работы</string>
+    <string name="undo">ОТМЕНИТЬ</string>
+    <string name="files_in_case">"Количество файлов:  "</string>
+    <string name="size_of_case">"Размер:  "</string>
+    <string name="select_documents_ext">Выберите документы .pdf , .doc , .docx</string>
+    <string name="not_supported_type">Этот вид файлов не поддерживается</string>
+    <string name="not_supported_adding_folder">Вы не можете добавить папку в дело</string>
+    <string name="no_data_to_share">Нет ни одного файла для отправки!</string>
+    <string name="no_camera">На устройстве отсутсвует камера</string>
+    <string name="define_group_name">Добавьте название группы дел</string>
+    <string name="this_name_exists">Вы уже создали группу дел с таким названием</string>
+    <string name="should_add_group">Создайте группу дел</string>
+    <string name="no_group_to_delete">Нет ни одной группы</string>
+    <string name="no_group_defined">Нет ни одной группы</string>
+    <string name="no_group_to_edit">Нет ни одной группы</string>
+    <string name="should_define_name_case">Добавьте название дела</string>
+    <string name="case_with_name_exists">Вы уже создали дело с таким названием</string>
+    <string name="set_group_name">Добавьте название группы</string>
+    <string name="photo_was_added_successfully">Фото успешно добавленно</string>
+    <string name="snackbar_delete_case">" удалено из группы!"</string>
+</resources>

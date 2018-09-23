@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
-    android:background="@color/colorBackground">
+    android:clickable="true">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/typeadding_screen"
@@ -50,15 +49,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welome_add_type_nameTv"
+                android:text="@string/welcome_add_type_name_textview"
                 android:textColor="@color/colorAccent"
                 android:layout_marginStart="2dp" />
 
             <EditText
-                android:id="@+id/et_add_type"
+                android:id="@+id/et_welcome_add_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/welcome_add_type_hintEt"
+                android:hint="@string/welcome_add_type_hint_edittext"
                 android:layout_marginTop="12dp">
 
                 <requestFocus />
@@ -69,7 +68,8 @@
                 android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_add_type"
+                android:theme="@style/ThemeSpinner"
+                android:layout_below="@+id/et_welcome_add_type"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="2dp"
                 android:dropDownSelector="@color/colorToolbar" />

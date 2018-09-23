@@ -7,7 +7,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TYPES;
 
 public class TypeByNameSpecification implements Specification {
 
-    private String name;
+    private final String name;
 
     public TypeByNameSpecification(String name) {
         this.name = name;

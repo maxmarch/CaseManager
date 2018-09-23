@@ -6,7 +6,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_CASES;
 
 public class CaseByIdSpecification implements Specification {
 
-    private int id;
+    private final int id;
 
     public CaseByIdSpecification(int id) {
         this.id = id;

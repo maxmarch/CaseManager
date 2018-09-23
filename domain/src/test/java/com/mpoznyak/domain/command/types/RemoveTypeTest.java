@@ -11,10 +11,10 @@ import static org.mockito.Mockito.verify;
 
 public class RemoveTypeTest {
 
-    Type type = mock(Type.class);
-    RemoveType interactor = mock(RemoveType.class);
+    private final Type type = mock(Type.class);
+    private final RemoveType interactor = mock(RemoveType.class);
     Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

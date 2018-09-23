@@ -2,11 +2,12 @@ package com.mpoznyak.domain.model;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 public class Entry {
 
     protected int mId;
-    protected File mPath;
+    private File mPath;
     protected int mCase_Id;
     protected String mName;
     protected long mSize;
@@ -55,7 +56,8 @@ public class Entry {
 
     public String getLastModified() {
         long millis = mPath.lastModified();
-        SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        pattern.setTimeZone(TimeZone.getDefault());
         mLastModified = pattern.format(millis);
         return mLastModified;
     }

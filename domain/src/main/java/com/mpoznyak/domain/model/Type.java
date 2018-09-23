@@ -52,9 +52,6 @@ public class Type {
 
     @Override
     public boolean equals(Object o) {
-        if (o != null && o instanceof Type) {
-            return this.mName.equals(((Type) o).mName);
-        }
-        return false;
+        return o != null && o instanceof Type && this.mName.equals(((Type) o).mName);
     }
 }

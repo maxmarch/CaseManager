@@ -20,7 +20,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_ENTRIES;
 
 public class EntryRepository implements Repository<Entry> {
 
-    private DatabaseHelper mDatabaseHelper;
+    private final DatabaseHelper mDatabaseHelper;
 
     public EntryRepository(DatabaseHelper helper) {
         mDatabaseHelper = helper;
@@ -49,34 +49,27 @@ public class EntryRepository implements Repository<Entry> {
 
     @Override
     public void remove(Entry item) {
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.delete(TABLE_ENTRIES, COLUMN_ID + "= ?"
-                    , new String[] {String.valueOf(item.getId())});
-        } finally {
-            database.close();
+                    , new String[]{String.valueOf(item.getId())});
         }
     }
 
     @Override
     public void update(Entry item) {
         ContentValues updatedEntryCv = ToContentValuesFromEntry.map(item);
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.update(TABLE_ENTRIES, updatedEntryCv, COLUMN_ID + " = ?"
                     , new String[]{String.valueOf(item.getId())});
-        } finally {
-            database.close();
         }
     }
 
     @Override
     public List<Entry> query(Specification specification) {
 
-        final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
         final List<Entry> entries = new ArrayList<>();
 
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getReadableDatabase()) {
             final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
             for (int i = 0, size = cursor.getCount(); i < size; i++) {
@@ -87,8 +80,6 @@ public class EntryRepository implements Repository<Entry> {
             cursor.close();
 
             return entries;
-        } finally {
-            database.close();
         }
     }
 }

@@ -10,9 +10,9 @@ import static org.mockito.Mockito.verify;
 
 public class GetTypesTest {
 
-    GetTypes interactor = mock(GetTypes.class);
-    Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final GetTypes interactor = mock(GetTypes.class);
+    private final Specification specification = mock(Specification.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

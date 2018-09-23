@@ -9,9 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class GetEntriesTest {
-    GetEntries interactor = mock(GetEntries.class);
-    Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final GetEntries interactor = mock(GetEntries.class);
+    private final Specification specification = mock(Specification.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

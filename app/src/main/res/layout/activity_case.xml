@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorCaseActivityBackground"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -15,7 +14,7 @@
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:background="@color/colorCaseToolbar"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|enterAlways|snap">
@@ -73,19 +72,45 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/colorTextOnDarkBackground"
-                    android:textSize="32sp"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.021"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toolbarCaseActivity"
-                    app:layout_constraintVertical_bias="0.741" />
+                    app:layout_constraintVertical_bias="0.2" />
+
+                <TextView
+                    android:id="@+id/textFilesInCaseActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textNameCaseActivity"
+                    app:layout_constraintVertical_bias="0.428" />
+
+                <TextView
+                    android:id="@+id/textSizeOfCaseActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textFilesInCaseActivity"
+                    app:layout_constraintTop_toBottomOf="@+id/textNameCaseActivity"
+                    app:layout_constraintVertical_bias="0.428" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tablayoutFilesCaseActivity"
+            android:id="@+id/tabFilesCaseActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTabLayoutCaseActivity"

@@ -1,31 +1,46 @@
 <resources>
-    <string name="welcome_message">Welcome to CaseManager. Here your documents and photos
-        can be grouped in cases to ease the access to them, to upload
-        them to cloud storages or to send via e-mail.</string>
+    <string name="welcome_message">Welcome to Document Assistant. In this app your documents and photos can be grouped in cases to ease an access to them. You can upload your cases to cloud storage, send via e-mail or any messenger or just open in any available application on your device from one place</string>
     <string name="new_type">New group</string>
     <string name="new_case">New Case</string>
     <string name="start">Start</string>
-    <string name="app_name">CaseManager</string>
-    <string name="types_of_cases">Groups Of Cases</string>
-    <string name="tasks_next_3_days">Tasks Next 3 Days</string>
+    <string name="app_name">Document Assistant</string>
     <string name="circle_description">color circle</string>
-    <string name="welome_add_type_nameTv">Name</string>
-    <string name="welcome_add_type_hintEt"><i>E.g. Business Documents</i></string>
-    <string name="new_case_hint_name"><i>E.g. The Contract and Annex LLC Browns</i></string>
+    <string name="welcome_add_type_name_textview">Name</string>
+    <string name="welcome_add_type_hint_edittext"><i>E.g. Business documents</i></string>
+    <string name="new_case_hint_name"><i>E.g. The contract and annex LLC Browns</i></string>
     <string name="page1">Documents</string>
     <string name="page2">Photos</string>
     <string name="add_photo">Add photo</string>
     <string name="take_photo">Take photo</string>
-    <string name="add_documents">Add documents</string>
+    <string name="add_documents">Add document</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="send_one_file">One file</string>
     <string name="send_multiple_files">Multiple files</string>
     <string name="send_all_files">All files</string>
     <string name="share_menu_title">Send...</string>
-    <string name="edit_type">Edit type</string>
-    <string name="no_type">You have not any group of documents</string>
+    <string name="edit_type">Edit group</string>
+    <string name="no_type">You have not any group</string>
     <string name="please_add">Create a new group for work</string>
+    <string name="undo">UNDO</string>
+    <string name="files_in_case">Files in case: </string>
+    <string name="size_of_case">"Size of case: </string>
+    <string name="select_documents_ext">Select documents .pdf , .doc , .docx</string>
+    <string name="not_supported_type">This file type is not supported</string>
+    <string name="not_supported_adding_folder">You can\'t add the folder to the case</string>
+    <string name="no_data_to_share">There is no data for share!</string>
+    <string name="no_camera">There is no camera application on device</string>
+    <string name="define_group_name">You should set a group name</string>
+    <string name="this_name_exists">You\'ve already created the group with this name!</string>
+    <string name="should_add_group">You should add a group</string>
+    <string name="no_group_to_delete">You have not any group to delete</string>
+    <string name="no_group_defined">There is no group"</string>
+    <string name="no_group_to_edit">You have not any group to edit</string>
+    <string name="should_define_name_case">You should set a name of your case</string>
+    <string name="case_with_name_exists">You\'ve already created the case with this name!</string>
+    <string name="set_group_name">"You should set a name of the group"</string>
+    <string name="photo_was_added_successfully">Photo\'s added successfully</string>
+    <string name="snackbar_delete_case"> removed from group!</string>
 
 
 </resources>

@@ -9,9 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class RemoveTaskTest {
-    Task task = mock(Task.class);
-    RemoveTask interactor = mock(RemoveTask.class);
-    Repository repository = mock(Repository.class);
+    private final Task task = mock(Task.class);
+    private final RemoveTask interactor = mock(RemoveTask.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

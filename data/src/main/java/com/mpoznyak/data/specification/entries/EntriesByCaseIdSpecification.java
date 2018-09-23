@@ -7,7 +7,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_ENTRIES;
 
 public class EntriesByCaseIdSpecification implements Specification {
 
-    private int caseId;
+    private final int caseId;
 
     public EntriesByCaseIdSpecification(int id) {
         caseId = id;

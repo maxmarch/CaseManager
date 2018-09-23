@@ -13,8 +13,8 @@ public class CaseTest {
 
     private static final String TITLE = "Criminal Case";
     private Case testCase;
-    private Case case1 = new Case();
-    private Case case2 = new Case();
+    private final Case case1 = new Case();
+    private final Case case2 = new Case();
 
     @Test
     public void shouldSetTitle(){
@@ -53,7 +53,7 @@ public class CaseTest {
         Case testCase1 = new Case();
         testCase1.setCreationDate(date);
         testCase.setCreationDate(strDate);
-        assertEquals(0, testCase1.compareTo(testCase1));
+        assertEquals(0, testCase.compareTo(testCase1));
     }
 
     @Test

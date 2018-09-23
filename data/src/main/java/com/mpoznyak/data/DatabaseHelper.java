@@ -45,27 +45,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String TABLE_ENTRIES = "entries";
         public static final String COLUMN_PATH = "path";
 
-        public static final String DISABLE_RECURSIVE_TRIGGERS = "PRAGMA recursive_triggers = false";
+        static final String DISABLE_RECURSIVE_TRIGGERS = "PRAGMA recursive_triggers = false";
 
-        public static final String CREATE_TRIGGER_TABLE_TYPES_ONINSERT = "CREATE TRIGGER types_last_opened_all_to_default " +
+        static final String CREATE_TRIGGER_TABLE_TYPES_ONINSERT = "CREATE TRIGGER types_last_opened_all_to_default " +
                 "BEFORE INSERT ON " + TABLE_TYPES + " BEGIN "
                 + "UPDATE " + TABLE_TYPES + " SET " + COLUMN_LAST_OPENED + " = 0; END;";
 
-        public static final String CREATE_TRIGGER_TABLE_TYPES_ONUPDATE = "CREATE TRIGGER types_onupdate_trigger " +
+        static final String CREATE_TRIGGER_TABLE_TYPES_ONUPDATE = "CREATE TRIGGER types_onupdate_trigger " +
                 " BEFORE UPDATE ON " + TABLE_TYPES + " BEGIN " +
                 " UPDATE " + TABLE_TYPES + " SET " + COLUMN_LAST_OPENED + " = 0 WHERE " + COLUMN_LAST_OPENED + " = 1"
                 + "; END;";
 
 
-
-        public static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
+        static final String CREATE_TABLE_TYPES = "CREATE TABLE " + TABLE_TYPES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NAME + " TEXT UNIQUE NOT NULL, "
                 + COLUMN_COLOR + " TEXT, "
                 + COLUMN_LAST_OPENED + " INTEGER DEFAULT 0"
                 + ");";
 
-        public static final String CREATE_TABLE_CASES = "CREATE TABLE " + TABLE_CASES + "("
+        static final String CREATE_TABLE_CASES = "CREATE TABLE " + TABLE_CASES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NAME + " TEXT UNIQUE NOT NULL, "
                 + COLUMN_TYPE + " TEXT NOT NULL, "
@@ -73,14 +72,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (" + COLUMN_TYPE + ")" + " REFERENCES " + TABLE_TYPES + "(" + COLUMN_NAME + ") ON DELETE CASCADE "
                 + "ON UPDATE CASCADE);";
 
-        public static final String CREATE_TABLE_TODOS = "CREATE TABLE " + TABLE_TASKS + " ("
+        static final String CREATE_TABLE_TODOS = "CREATE TABLE " + TABLE_TASKS + " ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_CASE_ID + " INTEGER, "
                 + COLUMN_TASK + " TEXT, "
                 + "FOREIGN KEY (" + COLUMN_CASE_ID + ")" + " REFERENCES " + TABLE_CASES + "(" + COLUMN_ID + ") ON DELETE CASCADE "
                 + ");";
 
-        public static final String CREATE_TABLE_ENTRIES = "CREATE TABLE " + TABLE_ENTRIES + "("
+        static final String CREATE_TABLE_ENTRIES = "CREATE TABLE " + TABLE_ENTRIES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_CASE_ID + " INTEGER, "
                 + COLUMN_PATH + " TEXT, "

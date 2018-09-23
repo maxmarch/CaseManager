@@ -12,10 +12,10 @@ import static org.mockito.Mockito.verify;
 
 public class RemoveCaseTest {
 
-    Case mCase = mock(Case.class);
-    RemoveCase interactor = mock(RemoveCase.class);
+    private final Case mCase = mock(Case.class);
+    private final RemoveCase interactor = mock(RemoveCase.class);
     Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

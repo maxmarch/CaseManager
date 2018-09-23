@@ -11,10 +11,10 @@ import static org.mockito.Mockito.verify;
 
 public class AddTaskTest {
 
-    Task task = mock(Task.class);
-    AddTask interactor = mock(AddTask.class);
+    private final Task task = mock(Task.class);
+    private final AddTask interactor = mock(AddTask.class);
     Specification specification = mock(Specification.class);
-    Repository repository = mock(Repository.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

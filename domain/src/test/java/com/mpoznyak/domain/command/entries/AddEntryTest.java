@@ -10,9 +10,9 @@ import static org.mockito.Mockito.verify;
 
 public class AddEntryTest {
 
-    Entry mEntry = mock(Entry.class);
-    AddEntry interactor = mock(AddEntry.class);
-    Repository repository = mock(Repository.class);
+    private final Entry mEntry = mock(Entry.class);
+    private final AddEntry interactor = mock(AddEntry.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     public void testExecute() {

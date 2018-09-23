@@ -20,7 +20,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_CASES;
 
 public class CaseRepository implements Repository<Case> {
 
-    private DatabaseHelper mDatabaseHelper;
+    private final DatabaseHelper mDatabaseHelper;
 
     public CaseRepository(DatabaseHelper databaseHelper) {
         mDatabaseHelper = databaseHelper;
@@ -51,44 +51,35 @@ public class CaseRepository implements Repository<Case> {
 
     @Override
     public void remove(Case aCase) {
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
-            database.delete(TABLE_CASES, COLUMN_NAME + "= ?", new String[] {aCase.getName()});
-        } finally {
-            database.close();
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
+            database.delete(TABLE_CASES, COLUMN_NAME + "= ?", new String[]{aCase.getName()});
         }
     }
 
     @Override
     public void update(Case item) {
         ContentValues updatedCaseCv = ToContentValuesFromCase.map(item);
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.update(TABLE_CASES, updatedCaseCv, COLUMN_NAME + " = ?"
                     , new String[]{item.getName()});
-        } finally {
-            database.close();
         }
     }
 
     @Override
     public List<Case> query(Specification specification) {
 
-            final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
-            final List<Case> cases = new ArrayList<>();
+        final List<Case> cases = new ArrayList<>();
 
-            try {
-                final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
+        try (SQLiteDatabase database = mDatabaseHelper.getReadableDatabase()) {
+            final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
-                for (int i = 0, size = cursor.getCount(); i < size; i++) {
-                    cursor.moveToPosition(i);
-                    cases.add(ToCaseFromCursor.map(cursor));
-                }
-                cursor.close();
+            for (int i = 0, size = cursor.getCount(); i < size; i++) {
+                cursor.moveToPosition(i);
+                cases.add(ToCaseFromCursor.map(cursor));
+            }
+            cursor.close();
 
-                return cases;
-            } finally {
-                database.close();
+            return cases;
         }
     }
 }

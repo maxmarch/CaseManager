@@ -22,7 +22,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TYPES;
 
 public class TypeRepository implements Repository<Type> {
 
-    DatabaseHelper mDatabaseHelper;
+    private final DatabaseHelper mDatabaseHelper;
 
     public TypeRepository(DatabaseHelper helper) {
         mDatabaseHelper = helper;
@@ -51,33 +51,26 @@ public class TypeRepository implements Repository<Type> {
 
     @Override
     public void remove(Type item) {
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.delete(TABLE_TYPES, COLUMN_NAME + "= ?"
                     , new String[]{String.valueOf(item.getName())});
-        } finally {
-            database.close();
         }
     }
 
     @Override
     public void update(Type item) {
         ContentValues cv = ToContentValuesFromType.map(item);
-        final SQLiteDatabase database = mDatabaseHelper.getWritableDatabase();
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getWritableDatabase()) {
             database.update(TABLE_TYPES, cv, COLUMN_ID + " = ?"
                     , new String[]{String.valueOf(item.getId())});
-        } finally {
-            database.close();
         }
     }
 
     @Override
     public List<Type> query(Specification specification) {
-        final SQLiteDatabase database = mDatabaseHelper.getReadableDatabase();
         final List<Type> types = new ArrayList<>();
 
-        try {
+        try (SQLiteDatabase database = mDatabaseHelper.getReadableDatabase()) {
             final Cursor cursor = database.rawQuery(specification.toSqlQuery(), new String[]{});
 
             for (int i = 0, size = cursor.getCount(); i < size; i++) {
@@ -86,8 +79,6 @@ public class TypeRepository implements Repository<Type> {
             }
             cursor.close();
             return types;
-        } finally {
-            database.close();
         }
     }
 }

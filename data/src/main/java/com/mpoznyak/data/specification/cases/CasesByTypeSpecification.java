@@ -6,7 +6,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_CASES;
 
 public class CasesByTypeSpecification implements Specification {
 
-    private String type;
+    private final String type;
 
     public CasesByTypeSpecification(String type) {
         this.type = type;

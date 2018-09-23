@@ -3,13 +3,7 @@ package com.mpoznyak.domain.model;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -18,7 +12,7 @@ import static org.mockito.Mockito.when;
 
 public class EntryTest {
 
-    private Entry doc = new Entry("/Users");
+    private Entry doc = new Entry();
 
     @Test
     public void testConstructors() {
@@ -60,19 +54,5 @@ public class EntryTest {
 
     }
 
-   //TODO replace this snippet to Interactor
-    @Test
-    public void shouldReturnListFiles() {
-        List<Entry> docs = new ArrayList<>();
-        Entry doc = new Entry("/Users/qarnd/Development/carinadocs/dataproviders/docs");
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(doc.getPath().toPath(),"*.{md,doc,java}")) {
-            for (Path path : stream) {
-                docs.add(new Entry(path.toString()));
-                System.out.println(path);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
 }

@@ -6,7 +6,7 @@ import static com.mpoznyak.data.DatabaseHelper.DatabaseContract.TABLE_TASKS;
 
 public class TaskByCaseIdSpecification implements Specification {
 
-    private int caseId;
+    private final int caseId;
 
     public TaskByCaseIdSpecification(int id) {
         caseId = id;

@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TaskTest {
 
-    private Task task = new Task();
+    private final Task task = new Task();
 
     @Before
     public void initTaskInstance() {
