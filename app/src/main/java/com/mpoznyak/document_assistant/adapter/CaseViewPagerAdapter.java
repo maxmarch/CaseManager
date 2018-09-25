@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 
 import com.mpoznyak.data.wrapper.DocumentWrapper;
 import com.mpoznyak.data.wrapper.PhotoWrapper;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class CaseViewPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
+public class CaseViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final String TAG = CaseViewPagerAdapter.class.getSimpleName();
     private static final int NUM = 2;
@@ -95,24 +94,20 @@ public class CaseViewPagerAdapter extends FragmentStatePagerAdapter implements V
         mPhotoFragment.setCasePresenter(mCasePresenter);
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    public void unregisterForContextMenuPhotoFragment() {
+        mPhotoFragment.unregisterForContextMenu();
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        if (position == 0) {
-            mPhotoFragment.unregisterForContextMenu();
-            mDocumentFragment.registerForContextMenu();
-        } else {
-            mDocumentFragment.unregisterForContextMenu();
-            mPhotoFragment.registerForContextMenu();
-        }
+    public void registerForContextMenuPhotoFragment() {
+        mPhotoFragment.registerForContextMenu();
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
+    public void unregisterForContextMenuDocumentFragment() {
+        mDocumentFragment.unregisterForContextMenu();
     }
+
+    public void registerForContextMenuDocumentFragment() {
+        mDocumentFragment.registerForContextMenu();
+    }
+
 }

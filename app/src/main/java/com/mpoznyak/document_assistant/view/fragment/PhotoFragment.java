@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,17 +69,21 @@ public class PhotoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        setUserVisibleHint(true);
         registerForContextMenu(mRecyclerView);
-        Log.d(TAG, "onResume()");
+    }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterForContextMenu(mRecyclerView);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        setUserVisibleHint(false);
         unregisterForContextMenu(mRecyclerView);
-        Log.d(TAG, "onDestroy()");
 
     }
 
@@ -94,7 +97,7 @@ public class PhotoFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle().equals("Delete")) {
+        if (item.getTitle().equals("Delete") && getUserVisibleHint()) {
             mCasePresenter.deleteEntry(mPhotoWrappers.get(mPhotosAdapter.getItemPosition()));
             mPhotoWrappers.remove(mPhotosAdapter.getItemPosition());
             mPhotosAdapter.notifyDataSetChanged();

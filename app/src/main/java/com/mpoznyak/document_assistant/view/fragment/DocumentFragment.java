@@ -75,6 +75,7 @@ public class DocumentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        setUserVisibleHint(true);
         mDocumentAdapter.notifyDataSetChanged();
 
         registerForContextMenu(mRecyclerView);
@@ -87,18 +88,34 @@ public class DocumentFragment extends Fragment {
         mDocumentAdapter.setClickListenerOption(option, docs);
     }
 
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         Log.d(TAG, "onDestroy()");
         unregisterForContextMenu(mRecyclerView);
     }
 
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setUserVisibleHint(false);
+        Log.d(TAG, "onDestroy()");
+        unregisterForContextMenu(mRecyclerView);
+    }
+
+    private static boolean m_iAmVisible;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        m_iAmVisible = isVisibleToUser;
+    }
+
+
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle().equals("Delete")) {
+        if (item.getTitle().equals("Delete") && getUserVisibleHint()) {
             mCasePresenter.deleteEntry(mDocumentWrappers.get(mDocumentAdapter.getItemPosition()));
             mDocumentWrappers.remove(mDocumentAdapter.getItemPosition());
             mDocumentAdapter.notifyDataSetChanged();

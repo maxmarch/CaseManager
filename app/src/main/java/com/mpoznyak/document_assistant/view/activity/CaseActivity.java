@@ -235,6 +235,30 @@ public class CaseActivity extends AppCompatActivity {
         });
 
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if (position == 0) {
+                    mPagerAdapter.unregisterForContextMenuPhotoFragment();
+                    mPagerAdapter.registerForContextMenuDocumentFragment();
+                } else {
+                    mPagerAdapter.unregisterForContextMenuDocumentFragment();
+                    mPagerAdapter.registerForContextMenuPhotoFragment();
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mTabLayout = findViewById(R.id.tabFilesCaseActivity);
         mTabLayout.setupWithViewPager(mViewPager);
 
